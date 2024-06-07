@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Akademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AkademikDbContext))]
-    [Migration("20240607145701_Init")]
+    [Migration("20240607203248_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -35,18 +35,15 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PESEL")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ResidentDetailsId")
                         .HasColumnType("int");
@@ -88,7 +85,7 @@ namespace Akademik.Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("PhotoData")
+                    b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("PostalCode")

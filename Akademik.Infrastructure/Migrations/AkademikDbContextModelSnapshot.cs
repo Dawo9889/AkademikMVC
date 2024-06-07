@@ -32,18 +32,15 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PESEL")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ResidentDetailsId")
                         .HasColumnType("int");
@@ -85,7 +82,7 @@ namespace Akademik.Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("PhotoData")
+                    b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("PostalCode")

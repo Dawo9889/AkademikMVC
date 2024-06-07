@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Microsoft.AspNetCore.Http;
 namespace Akademik.Domain.Entities
 {
     public class ResidentDetails
@@ -28,7 +28,12 @@ namespace Akademik.Domain.Entities
         
         public string? PostalCode { get; set; }
 
-        public byte[]? PhotoData { get; set; }
+        [NotMapped] // This property is not mapped to a database column
+        public IFormFile? PhotoData { get; set; }
+
+        [Column(TypeName = "varbinary(max)")]
+        public byte[]? Photo { get; set; }
+
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

@@ -24,7 +24,7 @@ namespace Akademik.Infrastructure.Migrations
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhotoData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Photo = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -54,9 +54,9 @@ namespace Akademik.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PESEL = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PESEL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResidentDetailsId = table.Column<int>(type: "int", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: true)
                 },

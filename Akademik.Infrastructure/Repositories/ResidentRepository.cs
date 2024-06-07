@@ -1,6 +1,7 @@
 ﻿using Akademik.Domain.Entities;
 using Akademik.Domain.Interfaces;
 using Akademik.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,7 @@ namespace Akademik.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             
         }
+
+       
     }
 }

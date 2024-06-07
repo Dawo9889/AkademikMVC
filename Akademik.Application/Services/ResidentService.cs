@@ -21,5 +21,7 @@ namespace Akademik.Application.Services
         {
             await _residentRepository.Create(resident);
         }
+
+       
     }
 }
