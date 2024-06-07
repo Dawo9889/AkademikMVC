@@ -1,0 +1,19 @@
+﻿using Akademik.Infrastructure.Data;
+using Akademik.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Akademik.Infrastructure.Extensions
+{
+    public static class ServiceCollectionExtension
+    {
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<AkademikDbContext>(option => option.UseSqlServer(
+                configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<InitialDataSeeder>();
+        }
+    }
+}
