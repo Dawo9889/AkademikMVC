@@ -1,0 +1,57 @@
+﻿@model Akademik.Domain.Entities.Resident
+@* Import of tag helpers *@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2>Create Resident</h2>
+<form asp-controller="Resident" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="PESEL"></label>
+        <input asp-for="PESEL" class="form-control" />
+        <span asp-validation-for="PESEL" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <h3>Resident Details</h3>
+    <div class="form-group">
+        <label asp-for="ResidentDetails.Email"></label>
+        <input asp-for="ResidentDetails.Email" class="form-control" />
+        <span asp-validation-for="ResidentDetails.Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ResidentDetails.StudentCardNumber"></label>
+        <input asp-for="ResidentDetails.StudentCardNumber" class="form-control" />
+        <span asp-validation-for="ResidentDetails.StudentCardNumber" class="text-danger"></span>
+    </div>
+    @* ... other ResidentDetails fields ... *@
+    <div class="form-group">
+        <label asp-for="ResidentDetails.PhotoData">Photo</label>
+        <input asp-for="ResidentDetails.PhotoData" type="file" class="form-control-file" />
+    </div>
+
+    <h3>Room Assignment</h3>
+    <div class="form-group">
+        <label asp-for="RoomId"></label>
+        <input asp-for="RoomId" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Resident</button>
+</form>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

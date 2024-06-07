@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Akademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AkademikDbContext))]
-    [Migration("20240607132418_Init")]
+    [Migration("20240607145701_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -27,32 +27,38 @@ namespace Akademik.Infrastructure.Migrations
 
             modelBuilder.Entity("Akademik.Domain.Entities.Resident", b =>
                 {
-                    b.Property<string>("PESEL")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("EncodedName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ResidentDetailsId")
+                    b.Property<string>("PESEL")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<int>("ResidentDetailsId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoomNumberId")
+                    b.Property<int?>("RoomId")
                         .HasColumnType("int");
 
-                    b.HasKey("PESEL");
+                    b.HasKey("Id");
 
                     b.HasIndex("ResidentDetailsId");
 
-                    b.HasIndex("RoomNumberId");
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Residents");
                 });
@@ -76,7 +82,8 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -92,7 +99,8 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.Property<string>("StudentCardNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -128,15 +136,22 @@ namespace Akademik.Infrastructure.Migrations
                 {
                     b.HasOne("Akademik.Domain.Entities.ResidentDetails", "ResidentDetails")
                         .WithMany()
-                        .HasForeignKey("ResidentDetailsId");
+                        .HasForeignKey("ResidentDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Akademik.Domain.Entities.Room", "RoomNumber")
-                        .WithMany()
-                        .HasForeignKey("RoomNumberId");
+                    b.HasOne("Akademik.Domain.Entities.Room", "Room")
+                        .WithMany("Residents")
+                        .HasForeignKey("RoomId");
 
                     b.Navigation("ResidentDetails");
 
-                    b.Navigation("RoomNumber");
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("Akademik.Domain.Entities.Room", b =>
+                {
+                    b.Navigation("Residents");
                 });
 #pragma warning restore 612, 618
         }

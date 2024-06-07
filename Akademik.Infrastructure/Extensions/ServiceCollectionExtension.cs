@@ -1,5 +1,7 @@
-﻿using Akademik.Infrastructure.Data;
+﻿using Akademik.Domain.Interfaces;
+using Akademik.Infrastructure.Data;
 using Akademik.Infrastructure.Persistence;
+using Akademik.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,9 @@ namespace Akademik.Infrastructure.Extensions
                 configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<InitialDataSeeder>();
+
+            services.AddScoped<IResidentRepository, ResidentRepository>();
+
         }
     }
 }

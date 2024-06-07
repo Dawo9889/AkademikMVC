@@ -17,8 +17,8 @@ namespace Akademik.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentCardNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    StudentCardNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -52,24 +52,26 @@ namespace Akademik.Infrastructure.Migrations
                 name: "Residents",
                 columns: table => new
                 {
-                    PESEL = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EncodedName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ResidentDetailsId = table.Column<int>(type: "int", nullable: true),
-                    RoomNumberId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PESEL = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ResidentDetailsId = table.Column<int>(type: "int", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Residents", x => x.PESEL);
+                    table.PrimaryKey("PK_Residents", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Residents_ResidentsDetails_ResidentDetailsId",
                         column: x => x.ResidentDetailsId,
                         principalTable: "ResidentsDetails",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Residents_Rooms_RoomNumberId",
-                        column: x => x.RoomNumberId,
+                        name: "FK_Residents_Rooms_RoomId",
+                        column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id");
                 });
@@ -80,9 +82,9 @@ namespace Akademik.Infrastructure.Migrations
                 column: "ResidentDetailsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Residents_RoomNumberId",
+                name: "IX_Residents_RoomId",
                 table: "Residents",
-                column: "RoomNumberId");
+                column: "RoomId");
         }
 
         /// <inheritdoc />
