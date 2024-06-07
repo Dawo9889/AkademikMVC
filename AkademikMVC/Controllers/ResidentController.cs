@@ -52,6 +52,14 @@ namespace AkademikMVC.Controllers
             }
             return View(resident);
         }
-      
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var residents = await _residentService.GetAll();
+
+            return View(residents);
+        }
+
     }
 }

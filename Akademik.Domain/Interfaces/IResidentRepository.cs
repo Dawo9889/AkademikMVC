@@ -6,5 +6,6 @@ namespace Akademik.Domain.Interfaces
     public interface IResidentRepository
     {
         Task Create(Resident resident);
+        Task<ICollection<Resident>> GetAll();
     }
 }

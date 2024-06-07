@@ -22,6 +22,9 @@ namespace Akademik.Application.Services
             await _residentRepository.Create(resident);
         }
 
-       
+        public async Task<ICollection<Resident>> GetAll()
+        {
+           return await _residentRepository.GetAll();
+        }
     }
 }

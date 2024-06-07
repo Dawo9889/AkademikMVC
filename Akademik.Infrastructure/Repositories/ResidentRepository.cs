@@ -26,6 +26,9 @@ namespace Akademik.Infrastructure.Repositories
             
         }
 
-       
+        public async Task<ICollection<Resident>> GetAll()
+        {
+            return await _context.Residents.ToListAsync();
+        }
     }
 }
