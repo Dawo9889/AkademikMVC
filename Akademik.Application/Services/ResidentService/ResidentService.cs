@@ -6,6 +6,7 @@ using SixLabors.ImageSharp.Formats.Jpeg; // Adjust if you use a different format
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using Akademik.Application.DTO.ResidentDTO;
+using Akademik.Application.Services.ResidentService;
 
 namespace Akademik.Application.Services.ResidentService
 {

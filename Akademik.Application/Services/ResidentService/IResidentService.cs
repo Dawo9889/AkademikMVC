@@ -2,7 +2,7 @@
 using Akademik.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 
-namespace Akademik.Application.Services.ResidentService.ResidentService
+namespace Akademik.Application.Services.ResidentService
 {
     public interface IResidentService
     {
