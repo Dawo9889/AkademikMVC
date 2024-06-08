@@ -21,7 +21,7 @@ namespace Akademik.Application.Extensions
 
             services.AddAutoMapper(typeof(ResidentMappingProfiles));
 
-            services.AddValidatorsFromAssemblyContaining<ResidentDTOValidator>()
+            services.AddValidatorsFromAssemblyContaining<CreateResidentDTOValidator>()
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
         }

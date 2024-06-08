@@ -9,5 +9,6 @@ namespace Akademik.Domain.Interfaces
         Task<ICollection<Resident>> GetAll();
         Task<Resident?> GetByPESEL(string Pesel);
         Task<Resident?> GetByStudentCardNumber(string studentCardNumber);
+        Task<Resident?> GetDetails(int id);
     }
 }

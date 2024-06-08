@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Akademik.Application.DTO.ResidentDTO
 {
-    public class ResidentDTOValidator : AbstractValidator<ResidentDTO>
+    public class CreateResidentDTOValidator : AbstractValidator<CreateResidentDTO>
     {
-        public ResidentDTOValidator(IResidentRepository residentRepository)
+        public CreateResidentDTOValidator(IResidentRepository residentRepository)
         {
             RuleFor(c => c.PESEL)
                .NotEmpty().WithMessage("Numer pokoju jest wymagany")

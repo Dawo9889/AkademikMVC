@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Akademik.Application.DTO.ResidentDTO.FewResidentInfoDTO>
+
+@{
+    ViewData["Title"] = "Residents";
+}
+
+<h1>Residents</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Add a resident</a>
+</p>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card m-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@item.FirstName</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@item.LastName</h6>
+                    <p class="card-text">Room ID: @item.RoomId</p>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
