@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace Akademik.Application.DTO.ResidentDTO
 {
-    public class ResidentDTOValidator : AbstractValidator<ResidentDTO>
+    public class CreateResidentDTOValidator : AbstractValidator<CreateResidentDTO>
     {
-        public ResidentDTOValidator(IResidentRepository residentRepository)
+        public CreateResidentDTOValidator(IResidentRepository residentRepository)
         {
             RuleFor(c => c.PESEL)
                .NotEmpty().WithMessage("Numer pokoju jest wymagany")
                .Length(11)
-               .Must(value => long.TryParse(value, out _))
-               .WithMessage("PESEL must contains 11 digits.")
+               .Must(value => long.TryParse(value, out _)).WithMessage("PESEL must contains 11 digits.")
                .Custom((value, context) =>
                {
                    var existingResident = residentRepository.GetByPESEL(value).Result;

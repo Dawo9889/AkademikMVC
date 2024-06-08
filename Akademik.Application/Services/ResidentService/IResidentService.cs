@@ -6,8 +6,10 @@ namespace Akademik.Application.Services.ResidentService
 {
     public interface IResidentService
     {
-        Task Create(ResidentDTO resident);
-        Task<ICollection<Resident>> GetAll();
+        Task Create(CreateResidentDTO createResident);
+        Task<IEnumerable<FewResidentInfoDTO>> GetAll();
         byte[] ProcessImage(IFormFile imageFile);
+
+        Task<DetailsResidentDTO> GetDetails(int id);
     }
 }
