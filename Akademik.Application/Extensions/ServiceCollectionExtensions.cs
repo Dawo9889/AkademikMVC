@@ -1,6 +1,6 @@
-﻿using Akademik.Application.DTO;
+﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Application.Mappings;
-using Akademik.Application.Services;
+using Akademik.Application.Services.ResidentService;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Akademik.Application.DTO
+namespace Akademik.Application.DTO.ResidentDTO
 
 {
     public class ResidentDTO
