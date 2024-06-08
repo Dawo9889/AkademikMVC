@@ -6,6 +6,7 @@ using SixLabors.ImageSharp.Formats.Jpeg; // Adjust if you use a different format
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using Akademik.Application.DTO.ResidentDTO;
+using Akademik.Application.Services.ResidentService;
 
 namespace Akademik.Application.Services.ResidentService
 {
@@ -20,9 +21,9 @@ namespace Akademik.Application.Services.ResidentService
             _mapper = mapper;
         }
 
-        public async Task Create(ResidentDTO residentDto)
+        public async Task Create(CreateResidentDTO createResidentDto)
         {
-            var resident = _mapper.Map<Resident>(residentDto);
+            var resident = _mapper.Map<Resident>(createResidentDto);
 
             if (resident.ResidentDetails.PhotoData != null && resident.ResidentDetails.PhotoData.Length > 0)
             {
@@ -32,16 +33,23 @@ namespace Akademik.Application.Services.ResidentService
             await _residentRepository.Create(resident);
         }
 
-        public async Task<ICollection<Resident>> GetAll()
+        public async Task<IEnumerable<FewResidentInfoDTO>> GetAll()
         {
-            return await _residentRepository.GetAll();
+            var residents = await _residentRepository.GetAll();
+            return _mapper.Map<IEnumerable<FewResidentInfoDTO>>(residents);
+        }
+
+        public async Task<DetailsResidentDTO> GetDetails(int id)
+        {
+            var details = await _residentRepository.GetDetails(id);
+            return _mapper.Map<DetailsResidentDTO>(details);  
         }
 
         public byte[] ProcessImage(IFormFile imageFile)
         {
             using (var image = Image.Load(imageFile.OpenReadStream()))
             {
-                image.Mutate(x => x.Resize(400, 300)); // Adjust dimensions as needed
+                image.Mutate(x => x.Resize(100, 100)); // Adjust dimensions as needed
 
                 using (var memoryStream = new MemoryStream())
                 {
