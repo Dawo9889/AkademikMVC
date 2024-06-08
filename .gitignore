@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Akademik.Infrastructure/Migrations/20240608122440_Init.cs
+/Akademik.Infrastructure/Migrations/20240608122440_Init.Designer.cs
+/Akademik.Infrastructure/Migrations/20240608122634_init.cs
+/Akademik.Infrastructure/Migrations/20240608122634_init.Designer.cs
