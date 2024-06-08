@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Akademik.Domain.Entities;
@@ -10,77 +11,96 @@ namespace Akademik.Infrastructure.Data
     public class InitialDataSeeder
     {
         private readonly AkademikDbContext _context;
+        private readonly Random _random = new Random();
 
         public InitialDataSeeder(AkademikDbContext context)
         {
             _context = context;
         }
 
-        public async Task Seed()
+        public async Task SeedAsync()
         {
             if (await _context.Database.CanConnectAsync())
             {
                 // Seed ResidentDetails
-                if (!_context.ResidentsDetails.Any())
+                if (!await _context.ResidentsDetails.AnyAsync())
                 {
-                    var residentDetails = new List<ResidentDetails>
+                    var residentDetails = new List<ResidentDetails>();
+                    for (int i = 1; i <= 3; i++) // Tworzymy 10 szczegółów mieszkańców
                     {
-                        new ResidentDetails
+                        residentDetails.Add(new ResidentDetails
                         {
-                            Email = "jan.kowalski@example.com",
-                            StudentCardNumber = "12345",
-                            PhoneNumber = "123-456-789",
-                            Street = "Ul. Testowa 123",
-                            City = "Testowo",
+                            Email = $"mieszkaniec{i}@example.com",
+                            StudentCardNumber = $"SN{i:D5}", // Numer albumu z 5 cyframi
+                            PhoneNumber = GenerateRandomPhoneNumber(),
+                            Street = $"Ulica Przykładowa {i}",
+                            City = "Warszawa", // Przykładowe miasto
                             Country = "Polska",
-                            PostalCode = "12-345"
-                        },
-                        // ... more resident details as needed
-                    };
+                            PostalCode = "00-001" // Przykładowy kod pocztowy
+                        });
+                    }
 
-                    _context.ResidentsDetails.AddRange(residentDetails);
+                    await _context.ResidentsDetails.AddRangeAsync(residentDetails);
                     await _context.SaveChangesAsync();
                 }
 
                 // Seed Rooms
-                if (!_context.Rooms.Any())
+                if (!await _context.Rooms.AnyAsync())
                 {
                     var rooms = new List<Room>
                     {
-                        new Room
-                        {
-                            RoomNumber = 101,
-                            NumberOfBeds = 2,
-                            IsAvailable = true,
-                        },
-                        // ... more rooms as needed
+                        new Room { RoomNumber = 101, NumberOfBeds = 2 },
+                        new Room { RoomNumber = 102, NumberOfBeds = 1 },
+                        new Room { RoomNumber = 201, NumberOfBeds = 3 }
+                        
                     };
 
-                    _context.Rooms.AddRange(rooms);
+                    await _context.Rooms.AddRangeAsync(rooms);
                     await _context.SaveChangesAsync();
                 }
 
-                // Seed Residents 
-                if (!_context.Residents.Any())
+                // Seed Residents (z relacjami)
+                if (!await _context.Residents.AnyAsync())
                 {
-                    var residents = new List<Resident>();
-                    var residentDetails = await _context.ResidentsDetails.FirstAsync(); // Get the first ResidentDetails
-                    var room = await _context.Rooms.FirstAsync(); // Get the first Room
+                    var residentDetails = await _context.ResidentsDetails.ToListAsync();
+                    var rooms = await _context.Rooms.Where(r => r.IsAvailable).ToListAsync();
 
-                    var resident = new Resident
+                    var residents = new List<Resident>();
+                    for (int i = 0; i < residentDetails.Count && i < rooms.Count; i++)
                     {
-                        PESEL = "12345678901", // Replace with valid PESELs
-                        FirstName = "Jan",
-                        LastName = "Kowalski",
-                        Room = room, // Assign the Room directly
-                        ResidentDetailsId = residentDetails.Id // Przypisanie Id
-                    };
-                    residents.Add(resident);
-                    // ... more residents
-                    _context.Residents.AddRange(residents);
+                        residents.Add(new Resident
+                        {
+                            PESEL = GenerateRandomPesel(),
+                            FirstName = $"Imię{i + 1}",
+                            LastName = $"Nazwisko{i + 1}",
+                            ResidentDetailsId = residentDetails[i].Id,
+                            Room = rooms[i] // Przypisujemy pokój bezpośrednio
+                        });
+
+                        rooms[i].IsAvailable = false; // Zaznacz pokój jako zajęty
+                    }
+
+                    await _context.Residents.AddRangeAsync(residents);
                     await _context.SaveChangesAsync();
                 }
             }
+        }
+
+        // Prosta metoda do generowania losowego numeru PESEL (tylko przykład)
+        private string GenerateRandomPesel()
+        {
+            string pesel = "";
+            for (int i = 0; i < 11; i++)
+            {
+                pesel += _random.Next(0, 10).ToString();
+            }
+            return pesel;
+        }
+
+        // Prosta metoda do generowania losowego numeru telefonu (tylko przykład)
+        private string GenerateRandomPhoneNumber()
+        {
+            return $"{_random.Next(100, 999)}-{_random.Next(100, 999)}-{_random.Next(100, 999)}";
         }
     }
 }

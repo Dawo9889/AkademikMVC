@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Akademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AkademikDbContext))]
-    [Migration("20240607203248_Init")]
+    [Migration("20240608114416_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,7 +53,8 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResidentDetailsId");
+                    b.HasIndex("ResidentDetailsId")
+                        .IsUnique();
 
                     b.HasIndex("RoomId");
 
@@ -132,8 +133,8 @@ namespace Akademik.Infrastructure.Migrations
             modelBuilder.Entity("Akademik.Domain.Entities.Resident", b =>
                 {
                     b.HasOne("Akademik.Domain.Entities.ResidentDetails", "ResidentDetails")
-                        .WithMany()
-                        .HasForeignKey("ResidentDetailsId")
+                        .WithOne()
+                        .HasForeignKey("Akademik.Domain.Entities.Resident", "ResidentDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

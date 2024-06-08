@@ -50,7 +50,8 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResidentDetailsId");
+                    b.HasIndex("ResidentDetailsId")
+                        .IsUnique();
 
                     b.HasIndex("RoomId");
 
@@ -129,8 +130,8 @@ namespace Akademik.Infrastructure.Migrations
             modelBuilder.Entity("Akademik.Domain.Entities.Resident", b =>
                 {
                     b.HasOne("Akademik.Domain.Entities.ResidentDetails", "ResidentDetails")
-                        .WithMany()
-                        .HasForeignKey("ResidentDetailsId")
+                        .WithOne()
+                        .HasForeignKey("Akademik.Domain.Entities.Resident", "ResidentDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -79,7 +79,8 @@ namespace Akademik.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Residents_ResidentDetailsId",
                 table: "Residents",
-                column: "ResidentDetailsId");
+                column: "ResidentDetailsId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Residents_RoomId",

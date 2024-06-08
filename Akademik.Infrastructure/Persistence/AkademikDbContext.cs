@@ -19,6 +19,21 @@ namespace Akademik.Infrastructure.Persistence
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Relacja jeden-do-jednego między Resident a ResidentDetails
+            modelBuilder.Entity<Resident>()
+                .HasOne(r => r.ResidentDetails)
+                .WithOne() // Nie ma właściwości nawigacyjnej w ResidentDetails
+                .HasForeignKey<Resident>(r => r.ResidentDetailsId);
+
+            // Relacja jeden-do-wielu między Room a Resident
+            modelBuilder.Entity<Room>()
+                .HasMany(r => r.Residents)
+                .WithOne(r => r.Room)
+                .HasForeignKey(r => r.RoomId); // Zmieniono na RoomId, zgodnie z nową strukturą encji
+
+        }
 
 
     }
