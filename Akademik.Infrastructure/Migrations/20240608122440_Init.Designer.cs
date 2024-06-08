@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Akademik.Infrastructure.Migrations
 {
     [DbContext(typeof(AkademikDbContext))]
-    [Migration("20240608114416_Init")]
+    [Migration("20240608122440_Init")]
     partial class Init
     {
         /// <inheritdoc />
