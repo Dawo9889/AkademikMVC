@@ -27,7 +27,7 @@ namespace AkademikMVC.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("/Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
             var details = await _residentService.GetDetails(id);
@@ -62,6 +62,39 @@ namespace AkademikMVC.Controllers
                 return RedirectToAction(nameof(List));
             }
             return View(createResident);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var resident = await _residentService.GetDetails(id);
+            if (resident == null)
+            {
+                return NotFound();
+            }
+
+            return View(resident);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task <IActionResult> DeleteConfirmed(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var resident = await _residentService.GetDetails(id);
+            if (resident == null)
+            {
+                return NotFound();
+            }
+            await _residentService.Delete(id);
+            return RedirectToAction(nameof(List));
         }
 
 

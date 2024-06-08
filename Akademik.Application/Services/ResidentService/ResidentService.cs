@@ -33,6 +33,13 @@ namespace Akademik.Application.Services.ResidentService
             await _residentRepository.Create(resident);
         }
 
+
+
+        public async Task Delete(int id)
+        {
+            await _residentRepository.Delete(id);
+        }
+
         public async Task<IEnumerable<FewResidentInfoDTO>> GetAll()
         {
             var residents = await _residentRepository.GetAll();

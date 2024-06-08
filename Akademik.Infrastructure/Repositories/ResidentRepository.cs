@@ -26,6 +26,24 @@ namespace Akademik.Infrastructure.Repositories
             
         }
 
+        public async Task Delete(int id)
+        {
+            var resident = await _context.Residents
+                .Include(r => r.ResidentDetails) 
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (resident != null)
+            {
+                if (resident.ResidentDetails != null)
+                {
+                    _context.ResidentsDetails.Remove(resident.ResidentDetails); 
+                }
+
+                _context.Residents.Remove(resident); 
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<ICollection<Resident>> GetAll()
         {
             return await _context.Residents.ToListAsync();

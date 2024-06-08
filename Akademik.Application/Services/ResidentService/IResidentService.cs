@@ -11,5 +11,6 @@ namespace Akademik.Application.Services.ResidentService
         byte[] ProcessImage(IFormFile imageFile);
 
         Task<DetailsResidentDTO> GetDetails(int id);
+        Task Delete(int id);
     }
 }
