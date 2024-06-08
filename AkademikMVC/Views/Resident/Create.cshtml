@@ -1,4 +1,4 @@
-﻿@model Akademik.Domain.Entities.Resident
+﻿@model Akademik.Application.DTO.ResidentDTO
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <h2>Create Resident</h2>
@@ -29,52 +29,52 @@
 
     <div class="row">
         <div class="col-md-6 form-group p-2">
-            <label asp-for="ResidentDetails.Email" class="form-label"></label>
-            <input asp-for="ResidentDetails.Email" class="form-control" />
-            <span asp-validation-for="ResidentDetails.Email" class="text-danger"></span>
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="col-md-6 form-group p-2">
-            <label asp-for="ResidentDetails.StudentCardNumber" class="form-label"></label>
-            <input asp-for="ResidentDetails.StudentCardNumber" class="form-control" />
-            <span asp-validation-for="ResidentDetails.StudentCardNumber" class="text-danger"></span>
+            <label asp-for="StudentCardNumber" class="form-label"></label>
+            <input asp-for="StudentCardNumber" class="form-control" />
+            <span asp-validation-for="StudentCardNumber" class="text-danger"></span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-4 form-group p-2">
-            <label asp-for="ResidentDetails.City" class="form-label"></label>
-            <input asp-for="ResidentDetails.City" class="form-control" />
-            <span asp-validation-for="ResidentDetails.City" class="text-danger"></span>
+            <label asp-for="City" class="form-label"></label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
         </div>
         <div class="col-md-4 form-group p-2">
-            <label asp-for="ResidentDetails.Country" class="form-label"></label>
-            <input asp-for="ResidentDetails.Country" class="form-control" />
-            <span asp-validation-for="ResidentDetails.Country" class="text-danger"></span>
+            <label asp-for="Country" class="form-label"></label>
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
         </div>
         <div class="col-md-4 form-group p-2">
-            <label asp-for="ResidentDetails.PostalCode" class="form-label"></label>
-            <input asp-for="ResidentDetails.PostalCode" class="form-control" />
-            <span asp-validation-for="ResidentDetails.PostalCode" class="text-danger"></span>
+            <label asp-for="PostalCode" class="form-label"></label>
+            <input asp-for="PostalCode" class="form-control" />
+            <span asp-validation-for="PostalCode" class="text-danger"></span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6 form-group p-2">
-            <label asp-for="ResidentDetails.Street" class="form-label"></label>
-            <input asp-for="ResidentDetails.Street" class="form-control" />
-            <span asp-validation-for="ResidentDetails.Street" class="text-danger"></span>
+            <label asp-for="Street" class="form-label"></label>
+            <input asp-for="Street" class="form-control" />
+            <span asp-validation-for="Street" class="text-danger"></span>
         </div>
         <div class="col-md-6 form-group p-2">
-            <label asp-for="ResidentDetails.PhoneNumber" class="form-label"></label>
-            <input asp-for="ResidentDetails.PhoneNumber" class="form-control" />
-            <span asp-validation-for="ResidentDetails.PhoneNumber" class="text-danger"></span>
+            <label asp-for="PhoneNumber" class="form-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group p-2 row">
-        <label asp-for="ResidentDetails.PhotoData" for="formFile" class="form-label col-md-2"></label>
+        <label asp-for="PhotoData" for="formFile" class="form-label col-md-2"></label>
         <div class="col-md-10">
-            <input asp-for="ResidentDetails.PhotoData" class="form-control" type="file" id="formFile">
+            <input asp-for="PhotoData" class="form-control" type="file" id="formFile">
         </div>
     </div>
 
@@ -84,6 +84,7 @@
         <label asp-for="RoomId" class="form-label col-md-2"></label>
         <div class="col-md-10">
             <input asp-for="RoomId" class="form-control" />
+            <span asp-validation-for="RoomId" class="text-danger"></span>
         </div>
     </div>
 

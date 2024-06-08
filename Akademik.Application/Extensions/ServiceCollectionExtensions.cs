@@ -1,4 +1,8 @@
-﻿using Akademik.Application.Services;
+﻿using Akademik.Application.DTO;
+using Akademik.Application.Mappings;
+using Akademik.Application.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -14,6 +18,12 @@ namespace Akademik.Application.Extensions
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IResidentService, ResidentService>();
+
+            services.AddAutoMapper(typeof(ResidentMappingProfiles));
+
+            services.AddValidatorsFromAssemblyContaining<ResidentDTOValidator>()
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
         }
     }
 }
