@@ -1,8 +1,8 @@
-﻿using Akademik.Application.DTO;
+﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 
-namespace Akademik.Application.Services
+namespace Akademik.Application.Services.ResidentService.ResidentService
 {
     public interface IResidentService
     {

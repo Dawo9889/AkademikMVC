@@ -1,13 +1,12 @@
-﻿using Akademik.Application.Services;
-using Akademik.Domain.Entities;
+﻿using Akademik.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
-using Akademik.Application.DTO;
+using Akademik.Application.DTO.ResidentDTO;
 namespace AkademikMVC.Controllers
 {
-    
+
     public class ResidentController : Controller 
     {
 

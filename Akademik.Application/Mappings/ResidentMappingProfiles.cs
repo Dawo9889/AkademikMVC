@@ -1,4 +1,4 @@
-﻿using Akademik.Application.DTO;
+﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Domain.Entities;
 using AutoMapper;
 using System;
