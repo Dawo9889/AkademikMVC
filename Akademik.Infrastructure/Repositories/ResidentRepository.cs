@@ -30,5 +30,15 @@ namespace Akademik.Infrastructure.Repositories
         {
             return await _context.Residents.ToListAsync();
         }
+
+        public async Task<Resident?> GetByPESEL(string Pesel)
+        {
+            return await _context.Residents.FirstOrDefaultAsync(c => c.PESEL == Pesel);
+        }
+
+        public async Task<Resident?> GetByStudentCardNumber(string studentCardNumber)
+        {
+            return await _context.Residents.FirstOrDefaultAsync(c => c.ResidentDetails.StudentCardNumber == studentCardNumber);
+        }
     }
 }

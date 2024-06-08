@@ -23,10 +23,6 @@ namespace Akademik.Domain.Entities
         [Required]
         public string LastName { get; set; } = default!;
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public string EncodedName
-            => $"{FirstName.ToLower().Replace(" ", "-")}-{LastName.ToLower().Replace(" ", "-")}";
-
         public int ResidentDetailsId { get; set; } // Dodanie właściwości ResidentDetailsId
 
         [ForeignKey("ResidentDetailsId")] // Określenie klucza obcego

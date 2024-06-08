@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
+using Akademik.Application.DTO;
 namespace AkademikMVC.Controllers
 {
     
@@ -26,7 +27,7 @@ namespace AkademikMVC.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(Resident resident)
+        public async Task<IActionResult> Create(ResidentDTO resident)
         {
             if (ModelState.IsValid)
             {

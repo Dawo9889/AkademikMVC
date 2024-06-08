@@ -4,20 +4,26 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg; // Adjust if you use a different format
 using Microsoft.AspNetCore.Http;
+using Akademik.Application.DTO;
+using AutoMapper;
 
 namespace Akademik.Application.Services
 {
     public class ResidentService : IResidentService
     {
         private readonly IResidentRepository _residentRepository;
+        private readonly IMapper _mapper;
 
-        public ResidentService(IResidentRepository residentRepository)
+        public ResidentService(IResidentRepository residentRepository, IMapper mapper)
         {
             _residentRepository = residentRepository;
+            _mapper = mapper;
         }
 
-        public async Task Create(Resident resident)
+        public async Task Create(ResidentDTO residentDto)
         {
+            var resident =_mapper.Map<Resident>(residentDto);
+
             if (resident.ResidentDetails.PhotoData != null && resident.ResidentDetails.PhotoData.Length > 0)
             {
                 resident.ResidentDetails.Photo = ProcessImage(resident.ResidentDetails.PhotoData);
