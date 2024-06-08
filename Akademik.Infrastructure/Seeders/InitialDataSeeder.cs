@@ -26,17 +26,17 @@ namespace Akademik.Infrastructure.Data
                 if (!await _context.ResidentsDetails.AnyAsync())
                 {
                     var residentDetails = new List<ResidentDetails>();
-                    for (int i = 1; i <= 3; i++) // Tworzymy 10 szczegółów mieszkańców
+                    for (int i = 1; i <= 3; i++)
                     {
                         residentDetails.Add(new ResidentDetails
                         {
                             Email = $"mieszkaniec{i}@example.com",
-                            StudentCardNumber = $"SN{i:D5}", // Numer albumu z 5 cyframi
+                            StudentCardNumber = $"SN{i:D5}",
                             PhoneNumber = GenerateRandomPhoneNumber(),
                             Street = $"Ulica Przykładowa {i}",
-                            City = "Warszawa", // Przykładowe miasto
+                            City = "Warszawa",
                             Country = "Polska",
-                            PostalCode = "00-001" // Przykładowy kod pocztowy
+                            PostalCode = "00-001"
                         });
                     }
 
@@ -49,10 +49,9 @@ namespace Akademik.Infrastructure.Data
                 {
                     var rooms = new List<Room>
                     {
-                        new Room { RoomNumber = 101, NumberOfBeds = 2 },
-                        new Room { RoomNumber = 102, NumberOfBeds = 1 },
-                        new Room { RoomNumber = 201, NumberOfBeds = 3 }
-                        
+                        new Room { RoomNumber = 101, IsAvailable = true, NumberOfBeds = 2 },
+                        new Room { RoomNumber = 102, IsAvailable = true, NumberOfBeds = 1 },
+                        new Room { RoomNumber = 201, IsAvailable = true, NumberOfBeds = 3 }
                     };
 
                     await _context.Rooms.AddRangeAsync(rooms);
@@ -63,21 +62,21 @@ namespace Akademik.Infrastructure.Data
                 if (!await _context.Residents.AnyAsync())
                 {
                     var residentDetails = await _context.ResidentsDetails.ToListAsync();
-                    var rooms = await _context.Rooms.Where(r => r.IsAvailable).ToListAsync();
+                    var rooms = await _context.Rooms.ToListAsync();
 
                     var residents = new List<Resident>();
-                    for (int i = 0; i < residentDetails.Count && i < rooms.Count; i++)
+                    for (int i = 0; i < residentDetails.Count; i++)
                     {
+                        int roomId = rooms[i % rooms.Count].Id; // Wybieramy pokój cyklicznie
+
                         residents.Add(new Resident
                         {
                             PESEL = GenerateRandomPesel(),
                             FirstName = $"Imię{i + 1}",
                             LastName = $"Nazwisko{i + 1}",
                             ResidentDetailsId = residentDetails[i].Id,
-                            Room = rooms[i] // Przypisujemy pokój bezpośrednio
+                            RoomId = roomId
                         });
-
-                        rooms[i].IsAvailable = false; // Zaznacz pokój jako zajęty
                     }
 
                     await _context.Residents.AddRangeAsync(residents);
