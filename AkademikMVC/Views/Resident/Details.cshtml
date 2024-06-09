@@ -92,6 +92,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-controller="Resident" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger mt-2">Edit</a> |
     <a asp-action="List">Back to List</a>
 </div>

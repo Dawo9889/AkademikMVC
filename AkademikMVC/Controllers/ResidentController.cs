@@ -120,7 +120,7 @@ namespace AkademikMVC.Controllers
             {
                 return NotFound();
             }
-
+            TempData["OldRoomNumber"] = residentToEdit.RoomNumber;
             return View(residentToEdit);
         }
 
@@ -134,7 +134,13 @@ namespace AkademikMVC.Controllers
                 ViewBag.AvailableRooms = availableRooms;
                 return View(residentToEdit);
             }
+            var oldRoomNumber = (int)TempData["OldRoomNumber"];
+
             await _residentService.UpdateResidentAsync(residentToEdit);
+            await _roomService.UpdateAbailabilityInRoom(oldRoomNumber);
+            await _roomService.UpdateAbailabilityInRoom(residentToEdit.RoomNumber);
+
+            TempData.Remove("OldRoomNumber");
             return RedirectToAction(nameof(List));
         }
         
