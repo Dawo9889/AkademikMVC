@@ -13,6 +13,6 @@ namespace Akademik.Application.DTO.RoomDTO
         public int RoomNumber { get; set; }
         public int? NumberOfBeds { get; set; }
         public bool? IsAvailable { get; set; }
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
     }
 }

@@ -21,7 +21,7 @@ namespace Akademik.Application.DTO.RoomDTO
                     var existingRoom = roomRepository.GetByRoomNumber(value).Result;
                     if (existingRoom != null)
                     {
-                        context.AddFailure("pokoj juz istnieje");
+                        context.AddFailure("Pokoj juz istnieje");
                     }
                 });
 

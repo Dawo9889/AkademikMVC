@@ -12,5 +12,6 @@ namespace Akademik.Application.Services.RoomService
     {
         Task Create(RoomDTO roomDto);
         Task <ICollection<RoomDTO>> GetAll();   
+        Task <ICollection<RoomDTO>> GetAllAvailableRooms();   
     }
 }

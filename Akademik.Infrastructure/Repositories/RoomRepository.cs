@@ -30,9 +30,19 @@ namespace Akademik.Infrastructure.Repositories
             return await _akademikDbContext.Rooms.ToListAsync();
         }
 
+        public async Task<IEnumerable<Room>> GetAllAvailableRooms()
+        {
+            return await _akademikDbContext.Rooms.Where(c => c.IsAvailable == true).ToListAsync();
+        }
+
         public async Task<Room?> GetByRoomNumber(int roomNumber)
         {
-            return await _akademikDbContext.Rooms.FirstAsync(c => c.RoomNumber == roomNumber);
+            return await _akademikDbContext.Rooms.FirstOrDefaultAsync(c => c.RoomNumber == roomNumber);
+        }
+
+        public Task<Room?> UpdateRoomAvailability(int roomNumber)
+        {
+            throw new NotImplementedException();
         }
     }
 }

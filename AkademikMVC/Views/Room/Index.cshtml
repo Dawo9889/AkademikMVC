@@ -5,17 +5,29 @@
 }
 
 <h1>Rooms</h1>
-
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Add new room</a>
+</p>
 <div class="row">
     @foreach (var item in Model) 
     {
         <div class="card m-3" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">@item.Id</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@item.RoomNumber</h6>
-                <p class="card-text">@item.NumberOfBeds</p>
-                <p class="card-text">@item.IsAvailable</p>
+                <h5 class="card-title">Numer pokoju: @item.RoomNumber</h5>
+                <p class="card-text">Liczba łóżek: @item.NumberOfBeds</p>
+                <p class="card-text">Dostępność: @if (item.IsAvailable == true)
+                    {
+                        <text>Tak</text>
+                    }
+                    else
+                    {
+                        <text>Nie</text>
+                    }</p>
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </div>
         </div>
+
     }
 </div>

@@ -30,5 +30,11 @@ namespace Akademik.Application.Services.RoomService
             var rooms = await _roomRepository.GetAll();
             return _mapper.Map<ICollection<RoomDTO>>(rooms);
         }
+
+        public async Task<ICollection<RoomDTO>> GetAllAvailableRooms()
+        {
+            var rooms = await _roomRepository.GetAllAvailableRooms();
+            return _mapper.Map<ICollection<RoomDTO>>(rooms);
+        }
     }
 }

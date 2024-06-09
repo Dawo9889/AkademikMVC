@@ -12,15 +12,19 @@ namespace AkademikMVC.Controllers
         {
             _roomService = roomService;
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
         [HttpPost]
-        public async Task<IActionResult> Create(RoomDTO roomDTO)
+        public async Task<IActionResult> Create(RoomDTO roomDto)
         {
             if (ModelState.IsValid)
             {
-                await _roomService.Create(roomDTO);
-                return RedirectToAction(nameof(Create));
+                await _roomService.Create(roomDto);
+                return RedirectToAction(nameof(Index));
             }
-            return View(roomDTO);
+            return View(roomDto);
         }
         [HttpGet]
         public async Task<IActionResult> Index()
