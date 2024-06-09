@@ -7,17 +7,20 @@ using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Application.Services.ResidentService;
+using Akademik.Application.Services.RoomService;
 
 namespace Akademik.Application.Services.ResidentService
 {
     public class ResidentService : IResidentService
     {
         private readonly IResidentRepository _residentRepository;
+        private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
 
-        public ResidentService(IResidentRepository residentRepository, IMapper mapper)
+        public ResidentService(IResidentRepository residentRepository,IRoomService roomService, IMapper mapper)
         {
             _residentRepository = residentRepository;
+            _roomService = roomService;
             _mapper = mapper;
         }
 
@@ -31,10 +34,12 @@ namespace Akademik.Application.Services.ResidentService
             }
 
             await _residentRepository.Create(resident);
+            await UpdateRoomAvailability(resident.RoomId);
         }
-
-
-
+        private async Task UpdateRoomAvailability(int roomId)
+        {
+            await _roomService.UpdateAbailabilityInRoom(roomId);
+        }
         public async Task Delete(int id)
         {
             await _residentRepository.Delete(id);

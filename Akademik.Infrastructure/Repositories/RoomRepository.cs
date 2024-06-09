@@ -40,9 +40,28 @@ namespace Akademik.Infrastructure.Repositories
             return await _akademikDbContext.Rooms.FirstOrDefaultAsync(c => c.RoomNumber == roomNumber);
         }
 
-        public Task<Room?> UpdateRoomAvailability(int roomNumber)
+        public async Task UpdateRoomAvailability(int roomNumber)
         {
-            throw new NotImplementedException();
+            int numberOfBedsInRoom = 0;
+            var room = await _akademikDbContext.Rooms.FirstOrDefaultAsync(c => c.RoomNumber == roomNumber);
+
+            if (room != null)
+            {
+                numberOfBedsInRoom = room.NumberOfBeds;
+            }
+
+            int numberOfResidentsInRoom = 0;
+            var listOfResidentsInRoom = await _akademikDbContext.Residents.Where(c => c.RoomId == roomNumber).ToListAsync();
+            numberOfResidentsInRoom = listOfResidentsInRoom.Count;
+
+            bool isAvailable = (numberOfResidentsInRoom < numberOfBedsInRoom);
+
+            if (room != null)
+            {
+                room.IsAvailable = isAvailable;
+                _akademikDbContext.Rooms.Update(room);
+                await _akademikDbContext.SaveChangesAsync();
+            }
         }
     }
 }

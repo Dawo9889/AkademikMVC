@@ -29,7 +29,7 @@ namespace Akademik.Domain.Entities
         public ResidentDetails? ResidentDetails { get; set; } // Właściwość nawigacyjna
 
 
-        public int? RoomId { get; set; }
+        public int RoomId { get; set; }
 
         [ForeignKey("RoomId")]
         public Room? Room { get; set; }
