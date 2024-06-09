@@ -13,7 +13,7 @@ namespace Akademik.Domain.Entities
         public string Email { get; set; } = default!;
 
         [Required]
-        [StringLength(20)] // Adjust max length as needed
+        [StringLength(8)] // Adjust max length as needed
         public string StudentCardNumber { get; set; } = default!;
 
         

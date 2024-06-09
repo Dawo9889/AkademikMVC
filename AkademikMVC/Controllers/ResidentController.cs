@@ -5,6 +5,9 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Application.Services.ResidentService;
+using Akademik.Domain.Interfaces;
+using Akademik.Application.Services.RoomService;
+using Akademik.Application.DTO.RoomDTO;
 namespace AkademikMVC.Controllers
 {
 
@@ -12,10 +15,12 @@ namespace AkademikMVC.Controllers
     {
 
         private readonly IResidentService _residentService;
+        private readonly IRoomService _roomService;
 
-        public ResidentController(IResidentService residentService)
+        public ResidentController(IResidentService residentService, IRoomService roomService)
         {
             _residentService = residentService;
+            _roomService = roomService;
         }
 
         [HttpGet]
@@ -40,10 +45,14 @@ namespace AkademikMVC.Controllers
             return View(details);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+           var availableRooms = await _roomService.GetAllAvailableRooms();
+           ViewBag.AvailableRooms = availableRooms;
+
            return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateResidentDTO createResident)
         {
@@ -52,6 +61,8 @@ namespace AkademikMVC.Controllers
                 await _residentService.Create(createResident);
                 return RedirectToAction(nameof(List));
             }
+            var availableRooms = await _roomService.GetAllAvailableRooms();
+            ViewBag.AvailableRooms = availableRooms;
             return View(createResident);
         }
 
@@ -87,6 +98,8 @@ namespace AkademikMVC.Controllers
             await _residentService.Delete(id);
             return RedirectToAction(nameof(List));
         }
+
+       
 
 
     }
