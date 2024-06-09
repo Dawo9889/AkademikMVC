@@ -8,6 +8,7 @@ using Akademik.Application.Services.ResidentService;
 using Akademik.Domain.Interfaces;
 using Akademik.Application.Services.RoomService;
 using Akademik.Application.DTO.RoomDTO;
+using AutoMapper;
 namespace AkademikMVC.Controllers
 {
 
@@ -16,11 +17,13 @@ namespace AkademikMVC.Controllers
 
         private readonly IResidentService _residentService;
         private readonly IRoomService _roomService;
+        private readonly IMapper _mapper;
 
-        public ResidentController(IResidentService residentService, IRoomService roomService)
+        public ResidentController(IResidentService residentService, IRoomService roomService, IMapper mapper)
         {
             _residentService = residentService;
             _roomService = roomService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -32,7 +35,7 @@ namespace AkademikMVC.Controllers
         }
 
         [HttpGet]
-        [Route("/Details/{id}")]
+        [Route("Resident/Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
             var details = await _residentService.GetDetails(id);
@@ -45,6 +48,7 @@ namespace AkademikMVC.Controllers
             return View(details);
         }
         [HttpGet]
+        [Route("Resident/Create")]
         public async Task<IActionResult> Create()
         {
            var availableRooms = await _roomService.GetAllAvailableRooms();
@@ -54,6 +58,7 @@ namespace AkademikMVC.Controllers
         }
 
         [HttpPost]
+        [Route("Resident/Create")]
         public async Task<IActionResult> Create(CreateResidentDTO createResident)
         {
             if (ModelState.IsValid)
@@ -68,6 +73,7 @@ namespace AkademikMVC.Controllers
 
 
         [HttpGet]
+        [Route("Resident/Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
@@ -84,6 +90,7 @@ namespace AkademikMVC.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Route("Resident/Delete/{id}")]
         public async Task <IActionResult> DeleteConfirmed(int id)
         {
             if (id == null)
@@ -100,10 +107,12 @@ namespace AkademikMVC.Controllers
         }
 
         [HttpGet]
-        [Route("/Edit/{id}")]
+        [Route("Resident/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var residentToEdit = await _residentService.GetDetails(id);
+            var details = await _residentService.GetDetails(id);
+            var residentToEdit = _mapper.Map<ResidentToEditDTO>(details);
+
             var availableRooms = await _roomService.GetAllAvailableRooms();
             ViewBag.AvailableRooms = availableRooms;
 
@@ -115,6 +124,20 @@ namespace AkademikMVC.Controllers
             return View(residentToEdit);
         }
 
+        [HttpPost]
+        [Route("Resident/Edit/{id}")]
+        public async Task<IActionResult> Edit(int id, ResidentToEditDTO residentToEdit)
+        {
+            if (!ModelState.IsValid)
+            {
+                var availableRooms = await _roomService.GetAllAvailableRooms();
+                ViewBag.AvailableRooms = availableRooms;
+                return View(residentToEdit);
+            }
+            await _residentService.UpdateResidentAsync(residentToEdit);
+            return RedirectToAction(nameof(List));
+        }
+        
 
     }
 }

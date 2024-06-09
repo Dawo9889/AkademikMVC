@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Akademik.Application.DTO.ResidentDTO
 {
-    public class DetailsResidentDTO
+    public class ResidentToEditDTO
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string PESEL { get; set; } = default!;
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
@@ -20,6 +20,7 @@ namespace Akademik.Application.DTO.ResidentDTO
         public string? City { get; set; }
         public string? Country { get; set; }
         public string? PostalCode { get; set; }
+        public IFormFile? PhotoData { get; set; }
         public byte[]? Photo { get; set; }
         public int RoomNumber { get; set; }
     }

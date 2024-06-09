@@ -68,5 +68,11 @@ namespace Akademik.Infrastructure.Repositories
                         .Include(r => r.ResidentDetails) 
                         .FirstOrDefaultAsync(r => r.Id == id);
         }
+
+        public async Task UpdateAsync(Resident resident)
+        {
+            _context.Update(resident);
+            await _context.SaveChangesAsync();
+        }
     }
 }

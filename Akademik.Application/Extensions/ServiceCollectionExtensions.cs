@@ -28,6 +28,10 @@ namespace Akademik.Application.Extensions
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
+            services.AddValidatorsFromAssemblyContaining<ResidentToEditDTOValidator>()
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+
             services.AddAutoMapper(typeof(RoomMappingProfiles));
 
             services.AddValidatorsFromAssemblyContaining<RoomDTOValidator>()

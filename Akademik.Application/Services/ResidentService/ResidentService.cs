@@ -75,5 +75,16 @@ namespace Akademik.Application.Services.ResidentService
                 }
             }
         }
+
+        public async Task UpdateResidentAsync(ResidentToEditDTO residentToEdit)
+        {
+            var resident = _residentRepository.GetByResidentId(residentToEdit.Id).Result;
+            if(resident == null)
+            {
+                return ;
+            }
+            resident = _mapper.Map(residentToEdit, resident);
+            await _residentRepository.UpdateAsync(resident);
+        }
     }
 }

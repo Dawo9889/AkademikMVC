@@ -12,5 +12,6 @@ namespace Akademik.Domain.Interfaces
         Task<Resident?> GetByStudentCardNumber(string studentCardNumber);
         Task<Resident?> GetByResidentId(int Residentid);
         Task<Resident?> GetDetails(int id);
+        Task UpdateAsync(Resident resident);
     }
 }

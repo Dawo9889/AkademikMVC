@@ -42,6 +42,8 @@ namespace Akademik.Application.Mappings
                 .ForMember(dest => dest.Photo, opt => opt.MapFrom(src => src.ResidentDetails.Photo))
                 .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.RoomNumber));
 
+            CreateMap<DetailsResidentDTO, ResidentToEditDTO>();
+            CreateMap<ResidentToEditDTO, Resident>();
         }
     }
 }
