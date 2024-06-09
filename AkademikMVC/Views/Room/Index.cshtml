@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Akademik.Application.DTO.RoomDTO.RoomDTO>
+
+@{
+    ViewData["Title"] = "Pokoje";
+}
+
+<h1>Rooms</h1>
+
+<div class="row">
+    @foreach (var item in Model) 
+    {
+        <div class="card m-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@item.Id</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@item.RoomNumber</h6>
+                <p class="card-text">@item.NumberOfBeds</p>
+                <p class="card-text">@item.IsAvailable</p>
+            </div>
+        </div>
+    }
+</div>

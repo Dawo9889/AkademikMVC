@@ -4,6 +4,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using Akademik.Application.DTO.ResidentDTO;
+using Akademik.Application.Services.ResidentService;
 namespace AkademikMVC.Controllers
 {
 

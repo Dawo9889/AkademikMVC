@@ -18,6 +18,7 @@ namespace Akademik.Infrastructure.Extensions
             services.AddScoped<InitialDataSeeder>();
 
             services.AddScoped<IResidentRepository, ResidentRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
 
         }
     }
