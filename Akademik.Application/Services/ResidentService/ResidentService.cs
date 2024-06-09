@@ -42,7 +42,12 @@ namespace Akademik.Application.Services.ResidentService
         }
         public async Task Delete(int id)
         {
-            await _residentRepository.Delete(id);
+            var resident = await _residentRepository.GetByResidentId(id);
+            if (resident != null)
+            {
+                await _residentRepository.Delete(id);
+                await UpdateRoomAvailability(resident.RoomNumber);
+            }
         }
 
         public async Task<IEnumerable<FewResidentInfoDTO>> GetAll()

@@ -53,7 +53,10 @@ namespace Akademik.Infrastructure.Repositories
         {
             return await _context.Residents.FirstOrDefaultAsync(r => r.PESEL == Pesel);
         }
-
+        public async Task<Resident?> GetByResidentId(int Residentid)
+        {
+            return await _context.Residents.FirstOrDefaultAsync(r => r.Id == Residentid);
+        }
         public async Task<Resident?> GetByStudentCardNumber(string studentCardNumber)
         {
             return await _context.Residents.FirstOrDefaultAsync(r => r.ResidentDetails.StudentCardNumber == studentCardNumber);
