@@ -28,7 +28,7 @@ namespace Akademik.Application.Mappings
             
             
             CreateMap<Resident, FewResidentInfoDTO>()
-                .ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => src.RoomId));
+                .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.RoomNumber));
 
 
             CreateMap<Resident, DetailsResidentDTO>()
@@ -40,7 +40,7 @@ namespace Akademik.Application.Mappings
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.ResidentDetails.Country))
                 .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.ResidentDetails.PostalCode))
                 .ForMember(dest => dest.Photo, opt => opt.MapFrom(src => src.ResidentDetails.Photo))
-                .ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => src.RoomId));
+                .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.RoomNumber));
 
         }
     }

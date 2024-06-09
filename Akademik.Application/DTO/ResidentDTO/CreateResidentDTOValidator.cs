@@ -44,8 +44,8 @@ namespace Akademik.Application.DTO.ResidentDTO
                 .EmailAddress()
                 .MaximumLength(255);
 
-            RuleFor(c => c.RoomId)
-             .NotEmpty().WithMessage("The RoomId field is required.")
+            RuleFor(c => c.RoomNumber)
+             .NotEmpty().WithMessage("The RoomNumber field is required.")
 
              .Must(roomId => roomId >= 1 && roomId <= 1000)
              .WithMessage("Numer pokoju musi być w zakresie od 1 do 1000");

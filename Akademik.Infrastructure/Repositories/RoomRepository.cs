@@ -51,7 +51,7 @@ namespace Akademik.Infrastructure.Repositories
             }
 
             int numberOfResidentsInRoom = 0;
-            var listOfResidentsInRoom = await _akademikDbContext.Residents.Where(c => c.RoomId == roomNumber).ToListAsync();
+            var listOfResidentsInRoom = await _akademikDbContext.Residents.Where(c => c.RoomNumber == roomNumber).ToListAsync();
             numberOfResidentsInRoom = listOfResidentsInRoom.Count;
 
             bool isAvailable = (numberOfResidentsInRoom < numberOfBedsInRoom);

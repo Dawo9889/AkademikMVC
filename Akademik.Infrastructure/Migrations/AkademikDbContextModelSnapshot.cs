@@ -45,7 +45,7 @@ namespace Akademik.Infrastructure.Migrations
                     b.Property<int>("ResidentDetailsId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoomId")
+                    b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -53,7 +53,7 @@ namespace Akademik.Infrastructure.Migrations
                     b.HasIndex("ResidentDetailsId")
                         .IsUnique();
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("RoomNumber");
 
                     b.ToTable("Residents");
                 });
@@ -104,11 +104,8 @@ namespace Akademik.Infrastructure.Migrations
 
             modelBuilder.Entity("Akademik.Domain.Entities.Room", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("RoomNumber")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -119,10 +116,7 @@ namespace Akademik.Infrastructure.Migrations
                     b.Property<int>("NumberOfBeds")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("RoomNumber");
 
                     b.ToTable("Rooms");
                 });
@@ -137,7 +131,9 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.HasOne("Akademik.Domain.Entities.Room", "Room")
                         .WithMany("Residents")
-                        .HasForeignKey("RoomId");
+                        .HasForeignKey("RoomNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ResidentDetails");
 

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Akademik.Domain.Entities
 {
@@ -14,26 +9,23 @@ namespace Akademik.Domain.Entities
         public int Id { get; set; }
 
         [Required]
-        
-        public string PESEL { get; set; } = default!;
+        public string PESEL { get; set; }
 
         [Required]
-        public string FirstName { get; set; } = default!;
+        public string FirstName { get; set; }
 
         [Required]
-        public string LastName { get; set; } = default!;
+        public string LastName { get; set; }
 
-        public int ResidentDetailsId { get; set; } // Dodanie właściwości ResidentDetailsId
+        public int ResidentDetailsId { get; set; }
 
-        [ForeignKey("ResidentDetailsId")] // Określenie klucza obcego
-        public ResidentDetails? ResidentDetails { get; set; } // Właściwość nawigacyjna
+        [ForeignKey("ResidentDetailsId")]
+        public ResidentDetails? ResidentDetails { get; set; }
 
+        [Required]
+        public int RoomNumber { get; set; }
 
-        public int RoomId { get; set; }
-
-        [ForeignKey("RoomId")]
+        [ForeignKey("RoomNumber")]
         public Room? Room { get; set; }
-
-        
     }
 }

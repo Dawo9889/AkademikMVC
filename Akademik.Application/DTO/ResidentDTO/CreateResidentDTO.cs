@@ -22,7 +22,7 @@ namespace Akademik.Application.DTO.ResidentDTO
         public string? PostalCode { get; set; }
         public IFormFile? PhotoData { get; set; }
         public byte[]? Photo { get; set; }
-        public int RoomId { get; set; }
+        public int RoomNumber { get; set; }
 
     }
 }

@@ -34,7 +34,7 @@ namespace Akademik.Application.Services.ResidentService
             }
 
             await _residentRepository.Create(resident);
-            await UpdateRoomAvailability(resident.RoomId);
+            await UpdateRoomAvailability(resident.RoomNumber);  
         }
         private async Task UpdateRoomAvailability(int roomId)
         {

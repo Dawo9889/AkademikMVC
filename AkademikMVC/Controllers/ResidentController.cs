@@ -39,20 +39,11 @@ namespace AkademikMVC.Controllers
 
             return View(details);
         }
-
-
-
-
-
-
         [HttpGet]
         public IActionResult Create()
         {
            return View();
         }
-
-
-
         [HttpPost]
         public async Task<IActionResult> Create(CreateResidentDTO createResident)
         {

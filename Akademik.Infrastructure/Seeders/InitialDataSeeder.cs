@@ -67,7 +67,7 @@ namespace Akademik.Infrastructure.Data
                     var residents = new List<Resident>();
                     for (int i = 0; i < residentDetails.Count; i++)
                     {
-                        int roomId = rooms[i % rooms.Count].Id; // Wybieramy pokój cyklicznie
+                        int roomId = rooms[i % rooms.Count].RoomNumber; // Wybieramy pokój cyklicznie
 
                         residents.Add(new Resident
                         {
@@ -75,7 +75,7 @@ namespace Akademik.Infrastructure.Data
                             FirstName = $"Imię{i + 1}",
                             LastName = $"Nazwisko{i + 1}",
                             ResidentDetailsId = residentDetails[i].Id,
-                            RoomId = roomId
+                            RoomNumber = roomId
                         });
                     }
 

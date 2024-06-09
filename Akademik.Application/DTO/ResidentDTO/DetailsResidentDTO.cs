@@ -20,6 +20,6 @@ namespace Akademik.Application.DTO.ResidentDTO
         public string? Country { get; set; }
         public string? PostalCode { get; set; }
         public byte[]? Photo { get; set; }
-        public int RoomId { get; set; }
+        public int RoomNumber { get; set; }
     }
 }

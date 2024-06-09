@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.FirstName</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@item.LastName</h6>
-                    <p class="card-text">Room ID: @item.RoomId</p>
+                    <p class="card-text">Room ID: @item.RoomNumber</p>
                     <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>

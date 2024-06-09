@@ -31,7 +31,7 @@ namespace Akademik.Infrastructure.Persistence
             modelBuilder.Entity<Room>()
                 .HasMany(r => r.Residents)
                 .WithOne(r => r.Room)
-                .HasForeignKey(r => r.RoomId); // Zmieniono na RoomId, zgodnie z nową strukturą encji
+                .HasForeignKey(r => r.RoomNumber); // Zmieniono na RoomId, zgodnie z nową strukturą encji
 
         }
 
