@@ -11,6 +11,6 @@ namespace Akademik.Application.Services.RoomService
     public interface IRoomService
     {
         Task Create(RoomDTO roomDto);
-        Task <ICollection<Room>> GetAll();   
+        Task <ICollection<RoomDTO>> GetAll();   
     }
 }

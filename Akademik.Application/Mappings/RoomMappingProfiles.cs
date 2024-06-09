@@ -13,8 +13,8 @@ namespace Akademik.Application.Mappings
     {
         public RoomMappingProfiles()
         {
-            CreateMap<RoomDTO, Room>()
-                .ForMember(c => c.Id, option => option.Ignore());
+            CreateMap<RoomDTO, Room>();
+            CreateMap<Room, RoomDTO>();
         }
     }
 }

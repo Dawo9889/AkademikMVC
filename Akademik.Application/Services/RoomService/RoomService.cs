@@ -25,10 +25,10 @@ namespace Akademik.Application.Services.RoomService
             await _roomRepository.Create(room);
         }
 
-        public async Task<ICollection<Room>> GetAll()
+        public async Task<ICollection<RoomDTO>> GetAll()
         {
             var rooms = await _roomRepository.GetAll();
-            return rooms.ToList();
+            return _mapper.Map<ICollection<RoomDTO>>(rooms);
         }
     }
 }
