@@ -63,5 +63,22 @@ namespace Akademik.Infrastructure.Repositories
                 await _akademikDbContext.SaveChangesAsync();
             }
         }
+        public async Task<Room> GetRoomWithResidents(int roomNumber)
+        {
+            return await _akademikDbContext.Rooms
+                .Include(r => r.Residents)
+                .FirstOrDefaultAsync(r => r.RoomNumber == roomNumber);
+        }
+
+        public async Task Delete(int roomNumber)
+        {
+            var room = await _akademikDbContext.Rooms.FirstOrDefaultAsync(r => r.RoomNumber == roomNumber);
+            if (room != null)
+            {
+                _akademikDbContext.Rooms.Remove(room);
+                await _akademikDbContext.SaveChangesAsync();
+            }
+        }
+
     }
 }

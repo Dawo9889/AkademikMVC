@@ -1,4 +1,5 @@
-﻿using Akademik.Application.DTO.RoomDTO;
+﻿using Akademik.Application.DTO.ResidentDTO;
+using Akademik.Application.DTO.RoomDTO;
 using Akademik.Domain.Entities;
 using AutoMapper;
 using System;
@@ -15,6 +16,9 @@ namespace Akademik.Application.Mappings
         {
             CreateMap<RoomDTO, Room>();
             CreateMap<Room, RoomDTO>();
+            CreateMap<Resident, FewResidentInfoDTO>();
+            CreateMap<Room, FewRoomInfoAndFewResidentinfoDTO>()
+                .ForMember(dest => dest.Residents, opt => opt.MapFrom(src => src.Residents));
         }
     }
 }

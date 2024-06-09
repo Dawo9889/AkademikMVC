@@ -1,4 +1,5 @@
-﻿using Akademik.Application.DTO.RoomDTO;
+﻿using Akademik.Application.DTO.ResidentDTO;
+using Akademik.Application.DTO.RoomDTO;
 using Akademik.Domain.Entities;
 using Akademik.Domain.Interfaces;
 using AutoMapper;
@@ -40,6 +41,26 @@ namespace Akademik.Application.Services.RoomService
         public async Task UpdateAbailabilityInRoom(int roomNumber)
         {
             await _roomRepository.UpdateRoomAvailability(roomNumber);
+        }
+        public async Task<FewRoomInfoAndFewResidentinfoDTO> GetRoomWithResidents(int roomNumber)
+        {
+            var room = await _roomRepository.GetRoomWithResidents(roomNumber);
+            return _mapper.Map<FewRoomInfoAndFewResidentinfoDTO>(room);
+        }
+
+        public async Task Delete(int roomNumber)
+        {
+            var room = await _roomRepository.GetByRoomNumber(roomNumber);
+            if (room != null)
+            {
+                await _roomRepository.Delete(roomNumber);
+            }
+        }
+
+        public async Task<RoomDTO> GetRoomByNumber(int id)
+        {
+            var room = await _roomRepository.GetByRoomNumber(id);
+            return _mapper.Map<RoomDTO>(room);
         }
     }
 }
