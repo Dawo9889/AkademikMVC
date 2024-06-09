@@ -37,7 +37,7 @@ namespace Akademik.Application.DTO.ResidentDTO
                         context.AddFailure("Student Card Number must be unique!");
                     }
                 });
-            ;
+
 
             RuleFor(c => c.Email)
                 .NotEmpty()
@@ -46,9 +46,11 @@ namespace Akademik.Application.DTO.ResidentDTO
 
             RuleFor(c => c.RoomNumber)
              .NotEmpty().WithMessage("The RoomNumber field is required.")
-
-             .Must(roomId => roomId >= 1 && roomId <= 1000)
+             .Must(roomNumber => roomNumber >= 1 && roomNumber <= 1000)
              .WithMessage("Numer pokoju musi być w zakresie od 1 do 1000");
+
+
+
         }
     }
 }

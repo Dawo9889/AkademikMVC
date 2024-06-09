@@ -80,15 +80,21 @@
 
 
     <h3>Room Assignment</h3>
-    <div class="form-group p-2 row">
-        <label asp-for="RoomNumber" class="form-label col-md-2"></label>
+    <div class="row">
+        <div class="col-md-2">
+            <label asp-for="RoomNumber" class="form-label">Wybierz pokój:</label>
+        </div>
         <div class="col-md-10">
-            <input asp-for="RoomNumber" class="form-control" />
+            <select asp-for="RoomNumber" class="form-control" asp-items="@(new SelectList(ViewBag.AvailableRooms, "RoomNumber", "RoomNumber"))">
+                <option value="">-- Wybierz pokój --</option>
+            </select>
             <span asp-validation-for="RoomNumber" class="text-danger"></span>
         </div>
+        
     </div>
 
     <button type="submit" class="btn btn-primary">Create Resident</button>
+
 </form>
 
 
@@ -96,7 +102,7 @@
 
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="List">Back to List</a>
 </div>
 
 @section Scripts {
