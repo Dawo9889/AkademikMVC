@@ -5,6 +5,7 @@ using Akademik.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace AkademikMVC.Controllers
@@ -99,7 +100,8 @@ namespace AkademikMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(roomToEdit);
+                var newRoom = await _roomService.GetRoomWithResidents(roomToEdit.RoomNumber);
+                return View(newRoom);
             }
             await _roomService.UpdateRoom(roomToEdit);
             await _roomService.UpdateAbailabilityInRoom(roomToEdit.RoomNumber);

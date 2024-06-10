@@ -17,11 +17,11 @@ namespace Akademik.Application.Mappings
             CreateMap<RoomDTO, Room>();
             CreateMap<Room, RoomDTO>();
             CreateMap<Resident, FewResidentInfoDTO>();
+            CreateMap<FewResidentInfoDTO, Resident>();
             CreateMap<Room, FewRoomInfoAndFewResidentinfoDTO>()
                 .ForMember(dest => dest.Residents, opt => opt.MapFrom(src => src.Residents));
-            CreateMap<FewRoomInfoAndFewResidentinfoDTO, Room>();
-            CreateMap<RoomDTO,EditRoomAndResidentsInRoomDTO>();
-            CreateMap<EditRoomAndResidentsInRoomDTO, Room>();
+            CreateMap<FewRoomInfoAndFewResidentinfoDTO, Room>()
+                .ForMember(dest => dest.Residents, opt => opt.MapFrom(src => src.Residents));
         }
     }
 }
