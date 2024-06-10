@@ -27,12 +27,14 @@
                         </ul>
                         <p>
                             <a class="btn btn-dark mt-2" disabled>Delete</a>
+                            <a asp-action="Edit" asp-route-roomNumber="@room.RoomNumber" class="btn btn-outline-warning mt-2">Edit Room</a>
                         </p>
                     }
                     else
                     {
                         <p>
                             <a asp-action="Delete" asp-route-roomNumber="@room.RoomNumber" class="btn btn-danger mt-2">Delete</a>
+                            <a asp-action="Edit" asp-route-roomNumber="@room.RoomNumber" class="btn btn-outline-warning mt-2">Edit Room</a>
                         </p>
                     }
                 </div>

@@ -80,5 +80,10 @@ namespace Akademik.Infrastructure.Repositories
             }
         }
 
+        public async Task Update(Room room)
+        {
+            _akademikDbContext.Update(room);
+            await _akademikDbContext.SaveChangesAsync();
+        }
     }
 }

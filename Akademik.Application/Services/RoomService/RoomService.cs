@@ -62,5 +62,11 @@ namespace Akademik.Application.Services.RoomService
             var room = await _roomRepository.GetByRoomNumber(id);
             return _mapper.Map<RoomDTO>(room);
         }
+
+        public async Task UpdateRoom(EditRoomAndResidentsInRoomDTO editRoomDto)
+        {
+            var room = _mapper.Map<Room>(editRoomDto);
+            await _roomRepository.Update(room);
+        }
     }
 }

@@ -18,5 +18,6 @@ namespace Akademik.Application.Services.RoomService
         Task UpdateAbailabilityInRoom(int roomNumber);
         Task<RoomDTO> GetRoomByNumber(int id);
         Task<FewRoomInfoAndFewResidentinfoDTO> GetRoomWithResidents(int roomNumber);
+        Task UpdateRoom(EditRoomAndResidentsInRoomDTO editRoomDto);
     }
 }

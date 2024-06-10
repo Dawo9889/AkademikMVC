@@ -2,6 +2,7 @@
 using Akademik.Application.DTO.RoomDTO;
 using Akademik.Application.Services.RoomService;
 using Akademik.Domain.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace AkademikMVC.Controllers
     public class RoomController : Controller
     {
         private readonly IRoomService _roomService;
-        public RoomController(IRoomService roomService)
+        private readonly IMapper _mapper;
+        public RoomController(IRoomService roomService, IMapper mapper)
         {
             _roomService = roomService;
+            _mapper = mapper;
         }
         public IActionResult Create()
         {
@@ -75,6 +78,35 @@ namespace AkademikMVC.Controllers
                 return NotFound();
             }
             await _roomService.Delete(roomNumber);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        [Route("Room/Edit/{roomNumber}")]
+        public async Task<IActionResult> Edit(int roomNumber)
+        {
+            var details = await _roomService.GetRoomByNumber(roomNumber);
+            var viewModel = new FewRoomInfoAndFewResidentinfoDTO();
+            if (details == null)
+            {
+                return NotFound();
+            }
+            var roomWithResidents = await _roomService.GetRoomWithResidents(details.RoomNumber);
+            viewModel = roomWithResidents;
+
+            //var roomToEdit = _mapper.Map<EditRoomAndResidentsInRoomDTO>(viewModel);
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [Route("Room/Edit/{roomNumber}")]
+        public async Task<IActionResult> UpdateRoom(EditRoomAndResidentsInRoomDTO roomToEdit)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(roomToEdit);
+            }
+            await _roomService.UpdateRoom(roomToEdit);
+            await _roomService.UpdateAbailabilityInRoom(roomToEdit.RoomNumber);
             return RedirectToAction(nameof(Index));
         }
     }
