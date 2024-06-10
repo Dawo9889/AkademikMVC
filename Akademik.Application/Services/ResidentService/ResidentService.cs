@@ -90,5 +90,10 @@ namespace Akademik.Application.Services.ResidentService
         {
             return await _residentRepository.GetByPESEL(Pesel);
         }
+
+        public async Task<Resident?> GetByResidentId(int Residentid)
+        {
+            return await _residentRepository.GetByResidentId(Residentid);
+        }
     }
 }

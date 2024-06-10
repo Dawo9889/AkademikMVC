@@ -131,15 +131,29 @@ namespace AkademikMVC.Controllers
                 ViewBag.AvailableRooms = availableRooms;
                 return View(residentToEdit);
             }
-            var oldRoomNumber = (int)TempData["OldRoomNumber"];
-            //sprawdzenie czy nowy pesel juz nie istnieje
-            if (await _residentService.GetByPESEL(residentToEdit.PESEL) != null)
+            var oldResident = await _residentService.GetByResidentId(id);
+
+            if (oldResident == null)
             {
-                var availableRooms = await _roomService.GetAllAvailableRooms();
-                ViewBag.AvailableRooms = availableRooms;
-                ModelState.AddModelError("PESEL", "Taki PESEL już jest w bazie");
                 return View(residentToEdit);
             }
+
+            if (oldResident.PESEL != residentToEdit.PESEL)
+            {
+                // Wykorzystanie funkcji GetByPESEL z serwisu do sprawdzenia unikalności
+                var existingResident = await _residentService.GetByPESEL(residentToEdit.PESEL);
+
+                if (existingResident != null)
+                {
+                    var availableRooms = await _roomService.GetAllAvailableRooms();
+                    ViewBag.AvailableRooms = availableRooms;
+                    ModelState.AddModelError("PESEL", "Taki PESEL już jest w bazie");
+                    return View(residentToEdit);
+                }
+            }
+
+            var oldRoomNumber = (int)TempData["OldRoomNumber"];
+
             await _residentService.UpdateResidentAsync(residentToEdit);
             await _roomService.UpdateAbailabilityInRoom(oldRoomNumber);
             await _roomService.UpdateAbailabilityInRoom(residentToEdit.RoomNumber);
