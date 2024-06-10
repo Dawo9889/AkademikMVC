@@ -13,5 +13,6 @@ namespace Akademik.Domain.Interfaces
         Task<Resident?> GetByResidentId(int Residentid);
         Task<Resident?> GetDetails(int id);
         Task UpdateAsync(Resident resident);
+        Task<int> GetCountResidentsInRoom(int roomNumber);
     }
 }

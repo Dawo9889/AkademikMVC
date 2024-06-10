@@ -2,8 +2,10 @@
 using Akademik.Application.DTO.RoomDTO;
 using Akademik.Application.Services.RoomService;
 using Akademik.Domain.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace AkademikMVC.Controllers
@@ -11,9 +13,11 @@ namespace AkademikMVC.Controllers
     public class RoomController : Controller
     {
         private readonly IRoomService _roomService;
-        public RoomController(IRoomService roomService)
+        private readonly IMapper _mapper;
+        public RoomController(IRoomService roomService, IMapper mapper)
         {
             _roomService = roomService;
+            _mapper = mapper;
         }
         public IActionResult Create()
         {
@@ -75,6 +79,32 @@ namespace AkademikMVC.Controllers
                 return NotFound();
             }
             await _roomService.Delete(roomNumber);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        [Route("Room/Edit/{roomNumber}")]
+        public async Task<IActionResult> Edit(int roomNumber)
+        {
+            var details = await _roomService.GetRoomByNumber(roomNumber);
+            if (details == null)
+            {
+                return NotFound();
+            }
+            var roomWithResidents = await _roomService.GetRoomWithResidents(details.RoomNumber);
+            return View(roomWithResidents);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [Route("Room/Edit/{roomNumber}")]
+        public async Task<IActionResult> UpdateRoom(FewRoomInfoAndFewResidentinfoDTO roomToEdit)
+        {
+            if (!ModelState.IsValid)
+            {
+                var newRoom = await _roomService.GetRoomWithResidents(roomToEdit.RoomNumber);
+                return View(newRoom);
+            }
+            await _roomService.UpdateRoom(roomToEdit);
+            await _roomService.UpdateAbailabilityInRoom(roomToEdit.RoomNumber);
             return RedirectToAction(nameof(Index));
         }
     }

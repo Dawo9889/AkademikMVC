@@ -4,6 +4,7 @@ using Akademik.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,6 +74,11 @@ namespace Akademik.Infrastructure.Repositories
         {
             _context.Update(resident);
             await _context.SaveChangesAsync();
+        }
+        public async Task<int> GetCountResidentsInRoom(int roomNumber)
+        {
+            var listOfResidentsInRoom = await _context.Residents.Where(c => c.RoomNumber == roomNumber).ToListAsync();
+            return listOfResidentsInRoom.Count();
         }
     }
 }

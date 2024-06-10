@@ -1,0 +1,62 @@
+﻿@model Akademik.Application.DTO.RoomDTO.FewRoomInfoAndFewResidentinfoDTO
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Room @Html.DisplayFor(model => model.RoomNumber)</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NumberOfBeds" class="control-label"></label>
+                <input asp-for="NumberOfBeds" class="form-control mt-2" id="NumberofBeds" />
+                <span asp-validation-for="NumberOfBeds" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input mt-2" asp-for="IsAvailable" id="IsAvailableCheckbox" /> @Html.DisplayNameFor(model => model.IsAvailable)
+                </label>
+            </div>
+
+            <h3>Residents</h3>
+            <div class="list-group p-2">
+                @if (Model.Residents.Any())
+                {
+                    @foreach (var resident in Model.Residents)
+                    {
+                        <a href="@Url.Action("Details", "Resident", new { id = resident.Id })" class="list-group-item list-group-item-action">
+                            @resident.FirstName @resident.LastName
+                        </a>
+                    }
+                }
+                else
+                {
+                    <p>No residents in this room.</p>
+                }
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary mt-2">Edit Room</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        var isAvailableCheckbox = document.getElementById("IsAvailableCheckbox");
+        var NumberofBeds = document.getElementById("NumberofBeds");
+        if (@Model.Residents.Count > 0) {
+            isAvailableCheckbox.disabled = true;
+        }
+    </script>
+}
