@@ -19,9 +19,7 @@ namespace Akademik.Application.Mappings
             CreateMap<Resident, FewResidentInfoDTO>();
             CreateMap<Room, FewRoomInfoAndFewResidentinfoDTO>()
                 .ForMember(dest => dest.Residents, opt => opt.MapFrom(src => src.Residents));
-            CreateMap<Room, EditRoomAndResidentsInRoomDTO>()
-                .ForMember(dest => dest.Residents, opt => opt.MapFrom(src => src.Residents));
-            CreateMap<EditRoomAndResidentsInRoomDTO, RoomDTO>();
+            CreateMap<FewRoomInfoAndFewResidentinfoDTO, Room>();
             CreateMap<RoomDTO,EditRoomAndResidentsInRoomDTO>();
             CreateMap<EditRoomAndResidentsInRoomDTO, Room>();
         }

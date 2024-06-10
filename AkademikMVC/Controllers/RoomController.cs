@@ -92,14 +92,12 @@ namespace AkademikMVC.Controllers
             }
             var roomWithResidents = await _roomService.GetRoomWithResidents(details.RoomNumber);
             viewModel = roomWithResidents;
-
-            //var roomToEdit = _mapper.Map<EditRoomAndResidentsInRoomDTO>(viewModel);
             return View(viewModel);
         }
 
         [HttpPost, ActionName("Edit")]
         [Route("Room/Edit/{roomNumber}")]
-        public async Task<IActionResult> UpdateRoom(EditRoomAndResidentsInRoomDTO roomToEdit)
+        public async Task<IActionResult> UpdateRoom(FewRoomInfoAndFewResidentinfoDTO roomToEdit)
         {
             if (!ModelState.IsValid)
             {

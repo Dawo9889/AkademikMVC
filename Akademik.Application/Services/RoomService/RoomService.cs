@@ -63,7 +63,7 @@ namespace Akademik.Application.Services.RoomService
             return _mapper.Map<RoomDTO>(room);
         }
 
-        public async Task UpdateRoom(EditRoomAndResidentsInRoomDTO editRoomDto)
+        public async Task UpdateRoom(FewRoomInfoAndFewResidentinfoDTO editRoomDto)
         {
             var room = _mapper.Map<Room>(editRoomDto);
             await _roomRepository.Update(room);
