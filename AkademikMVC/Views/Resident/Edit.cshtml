@@ -6,7 +6,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<h2>Edit @(Model.FirstName + " " + Model.LastName)</h2>
+<h2>@(Model.FirstName + " " + Model.LastName)</h2>
 <form asp-controller="Resident" asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
     <div class="form-group p-2 row">
         <div class="col-md-10">

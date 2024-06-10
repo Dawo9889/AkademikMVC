@@ -1,18 +1,12 @@
-﻿using Akademik.Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using Akademik.Application.DTO.ResidentDTO;
+﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Application.Services.ResidentService;
-using Akademik.Domain.Interfaces;
 using Akademik.Application.Services.RoomService;
-using Akademik.Application.DTO.RoomDTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 namespace AkademikMVC.Controllers
 {
 
-    public class ResidentController : Controller 
+    public class ResidentController : Controller
     {
 
         private readonly IResidentService _residentService;
@@ -51,10 +45,10 @@ namespace AkademikMVC.Controllers
         [Route("Resident/Create")]
         public async Task<IActionResult> Create()
         {
-           var availableRooms = await _roomService.GetAllAvailableRooms();
-           ViewBag.AvailableRooms = availableRooms;
+            var availableRooms = await _roomService.GetAllAvailableRooms();
+            ViewBag.AvailableRooms = availableRooms;
 
-           return View();
+            return View();
         }
 
         [HttpPost]
@@ -91,7 +85,7 @@ namespace AkademikMVC.Controllers
 
         [HttpPost, ActionName("Delete")]
         [Route("Resident/Delete/{id}")]
-        public async Task <IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (id == null)
             {
@@ -135,7 +129,14 @@ namespace AkademikMVC.Controllers
                 return View(residentToEdit);
             }
             var oldRoomNumber = (int)TempData["OldRoomNumber"];
-
+            //sprawdzenie czy po nowy pesel juz nie istnieje
+            if (await _residentService.GetByPESEL(residentToEdit.PESEL) != null)
+            {
+                var availableRooms = await _roomService.GetAllAvailableRooms();
+                ViewBag.AvailableRooms = availableRooms;
+                ModelState.AddModelError("PESEL", "Taki PESEL już jest w bazie");
+                return View(residentToEdit);
+            }
             await _residentService.UpdateResidentAsync(residentToEdit);
             await _roomService.UpdateAbailabilityInRoom(oldRoomNumber);
             await _roomService.UpdateAbailabilityInRoom(residentToEdit.RoomNumber);
@@ -143,7 +144,7 @@ namespace AkademikMVC.Controllers
             TempData.Remove("OldRoomNumber");
             return RedirectToAction(nameof(List));
         }
-        
+
 
     }
 }

@@ -13,5 +13,6 @@ namespace Akademik.Application.Services.ResidentService
         Task<DetailsResidentDTO> GetDetails(int id);
         Task Delete(int id);
         Task UpdateResidentAsync(ResidentToEditDTO residentToEdit);
+        Task<Resident?> GetByPESEL(string Pesel);
     }
 }

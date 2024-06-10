@@ -1,13 +1,12 @@
-﻿using Akademik.Domain.Entities;
-using Akademik.Domain.Interfaces;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Formats.Jpeg; // Adjust if you use a different format
-using Microsoft.AspNetCore.Http;
-using AutoMapper;
-using Akademik.Application.DTO.ResidentDTO;
-using Akademik.Application.Services.ResidentService;
+﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Application.Services.RoomService;
+using Akademik.Domain.Entities;
+using Akademik.Domain.Interfaces;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg; // Adjust if you use a different format
+using SixLabors.ImageSharp.Processing;
 
 namespace Akademik.Application.Services.ResidentService
 {
@@ -17,7 +16,7 @@ namespace Akademik.Application.Services.ResidentService
         private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
 
-        public ResidentService(IResidentRepository residentRepository,IRoomService roomService, IMapper mapper)
+        public ResidentService(IResidentRepository residentRepository, IRoomService roomService, IMapper mapper)
         {
             _residentRepository = residentRepository;
             _roomService = roomService;
@@ -34,7 +33,7 @@ namespace Akademik.Application.Services.ResidentService
             }
 
             await _residentRepository.Create(resident);
-            await UpdateRoomAvailability(resident.RoomNumber);  
+            await UpdateRoomAvailability(resident.RoomNumber);
         }
         private async Task UpdateRoomAvailability(int roomId)
         {
@@ -59,7 +58,7 @@ namespace Akademik.Application.Services.ResidentService
         public async Task<DetailsResidentDTO> GetDetails(int id)
         {
             var details = await _residentRepository.GetDetails(id);
-            return _mapper.Map<DetailsResidentDTO>(details);  
+            return _mapper.Map<DetailsResidentDTO>(details);
         }
 
         public byte[] ProcessImage(IFormFile imageFile)
@@ -79,12 +78,17 @@ namespace Akademik.Application.Services.ResidentService
         public async Task UpdateResidentAsync(ResidentToEditDTO residentToEdit)
         {
             var resident = _residentRepository.GetByResidentId(residentToEdit.Id).Result;
-            if(resident == null)
+            if (resident == null)
             {
-                return ;
+                return;
             }
             resident = _mapper.Map(residentToEdit, resident);
             await _residentRepository.UpdateAsync(resident);
+        }
+
+        public async Task<Resident?> GetByPESEL(string Pesel)
+        {
+            return await _residentRepository.GetByPESEL(Pesel);
         }
     }
 }
