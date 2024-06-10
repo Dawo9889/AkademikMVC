@@ -20,6 +20,9 @@ namespace AkademikMVC.Controllers
             _mapper = mapper;
         }
 
+
+
+
         [HttpGet]
         public async Task<IActionResult> List()
         {
@@ -129,7 +132,7 @@ namespace AkademikMVC.Controllers
                 return View(residentToEdit);
             }
             var oldRoomNumber = (int)TempData["OldRoomNumber"];
-            //sprawdzenie czy po nowy pesel juz nie istnieje
+            //sprawdzenie czy nowy pesel juz nie istnieje
             if (await _residentService.GetByPESEL(residentToEdit.PESEL) != null)
             {
                 var availableRooms = await _roomService.GetAllAvailableRooms();

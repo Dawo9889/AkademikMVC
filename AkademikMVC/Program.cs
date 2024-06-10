@@ -1,8 +1,6 @@
-using Akademik.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Akademik.Infrastructure.Extensions;
-using Akademik.Infrastructure.Data;
 using Akademik.Application.Extensions;
+using Akademik.Infrastructure.Data;
+using Akademik.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,5 +34,12 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "404-PageNotFound",
+    pattern: "{*url}", // "catch-all" segment
+    defaults: new { controller = "Home", action = "PageNotFound" }
+);
+app.UseStatusCodePagesWithReExecute("/Home/PageNotFound");
 
 app.Run();
