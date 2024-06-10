@@ -85,14 +85,12 @@ namespace AkademikMVC.Controllers
         public async Task<IActionResult> Edit(int roomNumber)
         {
             var details = await _roomService.GetRoomByNumber(roomNumber);
-            var viewModel = new FewRoomInfoAndFewResidentinfoDTO();
             if (details == null)
             {
                 return NotFound();
             }
             var roomWithResidents = await _roomService.GetRoomWithResidents(details.RoomNumber);
-            viewModel = roomWithResidents;
-            return View(viewModel);
+            return View(roomWithResidents);
         }
 
         [HttpPost, ActionName("Edit")]
