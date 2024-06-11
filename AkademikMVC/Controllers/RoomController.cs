@@ -104,7 +104,7 @@ namespace AkademikMVC.Controllers
                 return View(newRoom);
             }
             await _roomService.UpdateRoom(roomToEdit);
-            await _roomService.UpdateAbailabilityInRoom(roomToEdit.RoomNumber);
+            await _roomService.UpdateAvailabilityInRoom(roomToEdit.RoomNumber);
             return RedirectToAction(nameof(Index));
         }
     }

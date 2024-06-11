@@ -99,7 +99,10 @@ namespace AkademikMVC.Controllers
             {
                 return NotFound();
             }
+
             await _residentService.Delete(id);
+            await _roomService.UpdateAvailabilityInRoom(resident.RoomNumber);
+
             return RedirectToAction(nameof(List));
         }
 
@@ -155,8 +158,8 @@ namespace AkademikMVC.Controllers
             var oldRoomNumber = (int)TempData["OldRoomNumber"];
 
             await _residentService.UpdateResidentAsync(residentToEdit);
-            await _roomService.UpdateAbailabilityInRoom(oldRoomNumber);
-            await _roomService.UpdateAbailabilityInRoom(residentToEdit.RoomNumber);
+            await _roomService.UpdateAvailabilityInRoom(oldRoomNumber);
+            await _roomService.UpdateAvailabilityInRoom(residentToEdit.RoomNumber);
 
             TempData.Remove("OldRoomNumber");
             return RedirectToAction(nameof(List));
