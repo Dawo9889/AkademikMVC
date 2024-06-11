@@ -15,7 +15,7 @@ namespace Akademik.Application.Services.RoomService
         Task Delete(int roomNumber);
         Task <ICollection<RoomDTO>> GetAll();   
         Task <ICollection<RoomDTO>> GetAllAvailableRooms();
-        Task UpdateAbailabilityInRoom(int roomNumber);
+        Task UpdateAbailabilityInRoom(int? roomNumber);
         Task<RoomDTO> GetRoomByNumber(int id);
         Task<FewRoomInfoAndFewResidentinfoDTO> GetRoomWithResidents(int roomNumber);
         Task UpdateRoom(FewRoomInfoAndFewResidentinfoDTO editRoomDto);

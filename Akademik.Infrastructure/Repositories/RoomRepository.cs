@@ -40,7 +40,7 @@ namespace Akademik.Infrastructure.Repositories
             return await _akademikDbContext.Rooms.FirstOrDefaultAsync(c => c.RoomNumber == roomNumber);
         }
 
-        public async Task UpdateRoomAvailability(int roomNumber)
+        public async Task UpdateRoomAvailability(int? roomNumber)
         {
             int numberOfBedsInRoom = 0;
             var room = await _akademikDbContext.Rooms.FirstOrDefaultAsync(c => c.RoomNumber == roomNumber);

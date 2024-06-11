@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Car Workshops";
 }
-<h2>Pokoje</h2>
+<h2>Rooms</h2>
 <p>
     <a asp-action="Create" class="btn btn-secondary">Create New Room</a>
 </p>
@@ -13,9 +13,9 @@
         <div class="col-md-4">
             <div class="card m-3 border" style="width: 18rem;">
                 <div class="card-body">
-                    <h3>Numer pokoju @room.RoomNumber</h3>
-                    <p>Liczba łóżek: @room.NumberOfBeds</p>
-                    <p>Dostępny? @(room.IsAvailable ? "Tak" : "Nie")</p>
+                    <h3>Room number: @room.RoomNumber</h3>
+                    <p>Count of beds: @room.NumberOfBeds</p>
+                    <p>Available? @(room.IsAvailable ? "Yes" : "No")</p>
                     @if (room.Residents.Any())
                     {
                         <h4>Residents:</h4>

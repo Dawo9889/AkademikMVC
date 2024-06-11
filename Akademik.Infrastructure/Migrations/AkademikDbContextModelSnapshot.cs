@@ -45,7 +45,7 @@ namespace Akademik.Infrastructure.Migrations
                     b.Property<int>("ResidentDetailsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomNumber")
+                    b.Property<int?>("RoomNumber")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -94,8 +94,8 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.Property<string>("StudentCardNumber")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("Id");
 
@@ -131,9 +131,7 @@ namespace Akademik.Infrastructure.Migrations
 
                     b.HasOne("Akademik.Domain.Entities.Room", "Room")
                         .WithMany("Residents")
-                        .HasForeignKey("RoomNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoomNumber");
 
                     b.Navigation("ResidentDetails");
 

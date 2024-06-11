@@ -15,7 +15,7 @@ namespace Akademik.Domain.Interfaces
         Task<IEnumerable<Room>> GetAll();
         Task<Room?> GetByRoomNumber(int roomNumber);
         Task<IEnumerable<Room>> GetAllAvailableRooms();
-        Task UpdateRoomAvailability(int roomNumber);
+        Task UpdateRoomAvailability(int? roomNumber);
         Task<Room> GetRoomWithResidents(int roomNumber);
     }
 }
