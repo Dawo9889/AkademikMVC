@@ -13,15 +13,15 @@ namespace Akademik.Application.DTO.RoomDTO
         public RoomDTOValidator(IRoomRepository roomRepository)
         {
             RuleFor(c => c.RoomNumber)
-                .NotEmpty().WithMessage("Podaj numer pokoju ktory chcesz dodac!")
-                .LessThan(1000).WithMessage("Numer pokoju musi byc mniejszy od 1000!")
-                .GreaterThan(0).WithMessage("Numer pokoju musi byc wiekszy od 0!")
+                .NotEmpty().WithMessage("This field cannot be empty")
+                .Must(RoomNumber => RoomNumber >= 1 && RoomNumber <= 1000)
+                .WithMessage("The number of beds must be between 1 and 1000")
                 .Custom((value, context) =>
                 {
                     var existingRoom = roomRepository.GetByRoomNumber(value).Result;
                     if (existingRoom != null)
                     {
-                        context.AddFailure("Pokoj juz istnieje");
+                        context.AddFailure("This room is exists");
                     }
                 });
 
