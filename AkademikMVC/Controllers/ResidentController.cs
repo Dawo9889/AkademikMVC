@@ -191,7 +191,7 @@ namespace AkademikMVC.Controllers
                 return NotFound();
             }
             await _residentService.RemoveResidentFromRoom(id);
-            await _roomService.UpdateAbailabilityInRoom(resident.RoomNumber);
+            await _roomService.UpdateAvailabilityInRoom(resident.RoomNumber);
             return RedirectToAction("Index", "Room");
         }
 
