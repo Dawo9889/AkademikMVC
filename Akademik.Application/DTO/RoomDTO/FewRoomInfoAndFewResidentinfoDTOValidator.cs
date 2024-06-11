@@ -13,9 +13,13 @@ namespace Akademik.Application.DTO.RoomDTO
         public FewRoomInfoAndFewResidentinfoDTOValidator(IRoomRepository roomRepository)
         {
             RuleFor(c => c.NumberOfBeds)
-             .NotEmpty().WithMessage("Podaj ilość łóżek, którpokoju")
+             .Custom((value, context) =>
+             {
+                 if(value == 0) { context.AddFailure("Pokój nie może mieć 0 łóżek."); }
+             })
              .Must(NumberOfBeds => NumberOfBeds >= 1 && NumberOfBeds <= 3)
-             .WithMessage("Numer pokoju musi być w zakresie od 1 do 3");
+             .WithMessage("Numer pokoju musi być w zakresie od 1 do 3")
+             .NotEmpty().WithMessage("Pole nie może być puste");
              //.Custom((value, context) =>
              //{
              //    var roomNumber = context.InstanceToValidate.RoomNumber;
