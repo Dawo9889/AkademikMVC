@@ -80,5 +80,18 @@ namespace Akademik.Infrastructure.Repositories
             var listOfResidentsInRoom = await _context.Residents.Where(c => c.RoomNumber == roomNumber).ToListAsync();
             return listOfResidentsInRoom.Count();
         }
+
+        public async Task RemoveResidentFromFroom(int id)
+        {
+            var resident = _context.Residents.FirstOrDefault(r => r.Id == id);
+
+            if (resident != null)
+            {
+                resident.RoomNumber = null;
+
+                _context.Residents.Update(resident);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

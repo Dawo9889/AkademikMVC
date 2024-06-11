@@ -22,8 +22,7 @@ namespace Akademik.Domain.Entities
         [ForeignKey("ResidentDetailsId")]
         public ResidentDetails? ResidentDetails { get; set; }
 
-        [Required]
-        public int RoomNumber { get; set; }
+        public int? RoomNumber { get; set; }
 
         [ForeignKey("RoomNumber")]
         public Room? Room { get; set; }

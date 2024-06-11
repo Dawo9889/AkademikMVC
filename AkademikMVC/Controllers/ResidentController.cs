@@ -164,7 +164,36 @@ namespace AkademikMVC.Controllers
             TempData.Remove("OldRoomNumber");
             return RedirectToAction(nameof(List));
         }
+        [HttpGet]
+        [Route("Resident/RemoveResidentFromRoom/{id}")]
+        public async Task<IActionResult> RemoveResidentFromRoom(int id)
+        {
+            var resident = await _residentService.GetByResidentId(id);
+            var residentToEdit = _mapper.Map<FewResidentInfoDTO>(resident);
 
+            if (residentToEdit == null)
+            {
+                return NotFound();
+            }
+            return View(residentToEdit);    
+        }
+        [HttpPost]
+        [Route("Resident/RemoveResidentFromRoom/{id}")]
+        public async Task<IActionResult> RemoveResidentFromRoomConfirm(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var resident = await _residentService.GetDetails(id);
+            if (resident == null)
+            {
+                return NotFound();
+            }
+            await _residentService.RemoveResidentFromRoom(id);
+            await _roomService.UpdateAbailabilityInRoom(resident.RoomNumber);
+            return RedirectToAction("Index", "Room");
+        }
 
     }
 }

@@ -1,0 +1,12 @@
+﻿@model Akademik.Application.DTO.ResidentDTO.FewResidentInfoDTO
+
+@{
+    ViewData["Title"] = "RemoveResidentFromRoom";
+}
+
+<h3>Are you sure you want to remove this resident from room @Html.DisplayNameFor(model => model.RoomNumber)?</h3>
+    <form asp-action="RemoveResidentFromRoom">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a class="btn btn-secondary" asp-controller="room" asp-action="Edit" asp-route-roomnumber="@Model.RoomNumber">Back to List</a>
+    </form>
+</div>

@@ -91,6 +91,7 @@ namespace AkademikMVC.Controllers
                 return NotFound();
             }
             var roomWithResidents = await _roomService.GetRoomWithResidents(details.RoomNumber);
+            ViewBag.Residents = roomWithResidents.Residents;
             return View(roomWithResidents);
         }
 
@@ -100,6 +101,7 @@ namespace AkademikMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
+                roomToEdit.Residents = ViewBag.Residents;
                 var newRoom = await _roomService.GetRoomWithResidents(roomToEdit.RoomNumber);
                 return View(newRoom);
             }
