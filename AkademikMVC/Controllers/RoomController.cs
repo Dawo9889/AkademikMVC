@@ -101,12 +101,18 @@ namespace AkademikMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                roomToEdit.Residents = ViewBag.Residents;
-                var newRoom = await _roomService.GetRoomWithResidents(roomToEdit.RoomNumber);
-                return View(newRoom);
+                var existingRoom = await _roomService.GetRoomByNumber(roomToEdit.RoomNumber);
+                if (existingRoom == null)
+                {
+                    return NotFound();
+                }
+                //roomToEdit.CurrentResidentCount = existingRoom.Residents.Count;
+
+                _mapper.Map(existingRoom, roomToEdit);
+                return View(roomToEdit);
             }
             await _roomService.UpdateRoom(roomToEdit);
-            await _roomService.UpdateAbailabilityInRoom(roomToEdit.RoomNumber);
+            await _roomService.UpdateAvailabilityInRoom(roomToEdit.RoomNumber);
             return RedirectToAction(nameof(Index));
         }
     }

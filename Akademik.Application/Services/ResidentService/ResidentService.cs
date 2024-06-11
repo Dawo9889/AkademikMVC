@@ -37,7 +37,7 @@ namespace Akademik.Application.Services.ResidentService
         }
         private async Task UpdateRoomAvailability(int? roomId)
         {
-            await _roomService.UpdateAbailabilityInRoom(roomId);
+            await _roomService.UpdateAvailabilityInRoom(roomId);
         }
         public async Task Delete(int id)
         {

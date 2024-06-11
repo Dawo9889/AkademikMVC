@@ -38,7 +38,7 @@ namespace Akademik.Application.Services.RoomService
             return _mapper.Map<ICollection<RoomDTO>>(rooms);
         }
 
-        public async Task UpdateAbailabilityInRoom(int? roomNumber)
+        public async Task UpdateAvailabilityInRoom(int? roomNumber)
         {
             await _roomRepository.UpdateRoomAvailability(roomNumber);
         }
