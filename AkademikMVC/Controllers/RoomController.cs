@@ -85,13 +85,12 @@ namespace AkademikMVC.Controllers
         [Route("Room/Edit/{roomNumber}")]
         public async Task<IActionResult> Edit(int roomNumber)
         {
-            var details = await _roomService.GetRoomByNumber(roomNumber);
-            if (details == null)
+            var roomWithResidents = await _roomService.GetRoomWithResidents(roomNumber);
+            if (roomWithResidents == null)
             {
                 return NotFound();
             }
-            var roomWithResidents = await _roomService.GetRoomWithResidents(details.RoomNumber);
-            ViewBag.Residents = roomWithResidents.Residents;
+
             return View(roomWithResidents);
         }
 
@@ -101,18 +100,22 @@ namespace AkademikMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var existingRoom = await _roomService.GetRoomByNumber(roomToEdit.RoomNumber);
-                if (existingRoom == null)
-                {
-                    return NotFound();
-                }
-                //roomToEdit.CurrentResidentCount = existingRoom.Residents.Count;
+                var newRoom = await _roomService.GetRoomWithResidents(roomToEdit.RoomNumber);
+                return View(newRoom);
+            }
+            var room = await _roomService.GetRoomWithResidents(roomToEdit.RoomNumber);
 
-                _mapper.Map(existingRoom, roomToEdit);
-                return View(roomToEdit);
+            foreach (var residentDto in roomToEdit.Residents)
+            {
+                var existingResident = room.Residents.FirstOrDefault(r => r.Id == residentDto.Id);
+                if (existingResident != null)
+                {
+                    _mapper.Map(residentDto, existingResident);
+                }
             }
             await _roomService.UpdateRoom(roomToEdit);
-            await _roomService.UpdateAvailabilityInRoom(roomToEdit.RoomNumber);
+            await _roomService.UpdateAbailabilityInRoom(roomToEdit.RoomNumber);
+
             return RedirectToAction(nameof(Index));
         }
     }
