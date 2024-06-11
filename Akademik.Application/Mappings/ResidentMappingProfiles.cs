@@ -1,11 +1,6 @@
 ﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Domain.Entities;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Akademik.Application.Mappings
 {
@@ -25,10 +20,11 @@ namespace Akademik.Application.Mappings
                     PostalCode = src.PostalCode,
                     PhotoData = src.PhotoData,
                 }));
-            
-            
+
+
             CreateMap<Resident, FewResidentInfoDTO>()
                 .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.RoomNumber));
+
 
 
             CreateMap<Resident, DetailsResidentDTO>()
@@ -42,8 +38,26 @@ namespace Akademik.Application.Mappings
                 .ForMember(dest => dest.Photo, opt => opt.MapFrom(src => src.ResidentDetails.Photo))
                 .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.RoomNumber));
 
+
+
             CreateMap<DetailsResidentDTO, ResidentToEditDTO>();
-            CreateMap<ResidentToEditDTO, Resident>();
+
+
+
+
+
+            CreateMap<ResidentToEditDTO, Resident>()
+                .ForMember(e => e.ResidentDetails, options => options.MapFrom(src => new ResidentDetails()
+                {
+                    Email = src.Email,
+                    StudentCardNumber = src.StudentCardNumber,
+                    PhoneNumber = src.PhoneNumber,
+                    Street = src.Street,
+                    City = src.City,
+                    Country = src.Country,
+                    PostalCode = src.PostalCode,
+                    PhotoData = src.PhotoData,
+                }));
         }
     }
 }

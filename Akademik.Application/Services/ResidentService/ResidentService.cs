@@ -61,20 +61,6 @@ namespace Akademik.Application.Services.ResidentService
             return _mapper.Map<DetailsResidentDTO>(details);
         }
 
-        public byte[] ProcessImage(IFormFile imageFile)
-        {
-            using (var image = Image.Load(imageFile.OpenReadStream()))
-            {
-                image.Mutate(x => x.Resize(100, 100)); // Adjust dimensions as needed
-
-                using (var memoryStream = new MemoryStream())
-                {
-                    image.Save(memoryStream, new JpegEncoder { Quality = 80 }); // Adjust quality as needed
-                    return memoryStream.ToArray();
-                }
-            }
-        }
-
         public async Task UpdateResidentAsync(ResidentToEditDTO residentToEdit)
         {
             var resident = _residentRepository.GetByResidentId(residentToEdit.Id).Result;
@@ -83,6 +69,10 @@ namespace Akademik.Application.Services.ResidentService
                 return;
             }
             resident = _mapper.Map(residentToEdit, resident);
+            if (resident.ResidentDetails.PhotoData != null && resident.ResidentDetails.PhotoData.Length > 0)
+            {
+                resident.ResidentDetails.Photo = ProcessImage(resident.ResidentDetails.PhotoData);
+            }
             await _residentRepository.UpdateAsync(resident);
         }
 
@@ -95,5 +85,23 @@ namespace Akademik.Application.Services.ResidentService
         {
             return await _residentRepository.GetByResidentId(Residentid);
         }
+
+
+
+
+        public byte[] ProcessImage(IFormFile imageFile)
+        {
+            using (var image = Image.Load(imageFile.OpenReadStream()))
+            {
+                image.Mutate(x => x.Resize(300, 300)); // Adjust dimensions as needed
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    image.Save(memoryStream, new JpegEncoder { Quality = 80 }); // Adjust quality as needed
+                    return memoryStream.ToArray();
+                }
+            }
+        }
+
     }
 }
