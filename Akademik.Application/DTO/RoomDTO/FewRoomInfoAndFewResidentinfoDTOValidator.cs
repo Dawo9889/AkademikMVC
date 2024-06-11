@@ -15,28 +15,28 @@ namespace Akademik.Application.DTO.RoomDTO
             RuleFor(c => c.NumberOfBeds)
              .Custom((value, context) =>
              {
-                 if(value == 0) { context.AddFailure("Pokój nie może mieć 0 łóżek."); }
+                 if(value == 0) { context.AddFailure("The room cannot have 0 beds."); }
              })
              .Must(NumberOfBeds => NumberOfBeds >= 1 && NumberOfBeds <= 3)
-             .WithMessage("Numer pokoju musi być w zakresie od 1 do 3")
-             .NotEmpty().WithMessage("Pole nie może być puste");
-             //.Custom((value, context) =>
-             //{
-             //    var roomNumber = context.InstanceToValidate.RoomNumber;
-             //    var existingRoomTask = roomRepository.GetRoomWithResidents(roomNumber);
-             //    var existingRoom = existingRoomTask.Result;
+             .WithMessage("The number of beds must be between 1 and 3")
+             .NotEmpty().WithMessage("This input cannot be empty")
+             .Custom((value, context) =>
+             {
+                 var roomNumber = context.InstanceToValidate.RoomNumber;
+                 var existingRoomTask = roomRepository.GetRoomWithResidents(roomNumber);
+                 var existingRoom = existingRoomTask.Result;
 
-             //    if (existingRoom == null)
-             //    {
-             //        context.AddFailure("Pokój nie został znaleziony.");
-             //        return;
-             //    }
+                 if (existingRoom == null)
+                 {
+                     context.AddFailure("Room not found.");
+                     return;
+                 }
 
-             //    if (value < existingRoom.Residents.Count)
-             //    {
-             //        context.AddFailure("Liczba łóżek nie może być mniejsza niż obecna liczba mieszkańców w pokoju");
-             //    }
-             //});
+                 if (value < existingRoom.Residents.Count)
+                 {
+                     context.AddFailure("The number of beds cannot be less than the current number of residents in the room");
+                 }
+             });
 
             RuleFor(c => c.IsAvailable)
                 .Must((dto, isAvailable) => dto.CanSetAvailability || !isAvailable)

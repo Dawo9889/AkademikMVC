@@ -1,56 +1,56 @@
 ﻿@model Akademik.Application.DTO.RoomDTO.FewRoomInfoAndFewResidentinfoDTO
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Room";
 }
 
-<h1>Edit Room @Html.DisplayFor(model => model.RoomNumber)</h1>
-<hr />
+<h1 class="mb-3">Edit Room @Html.DisplayFor(model => model.RoomNumber)</h1>
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
-                <label asp-for="NumberOfBeds" class="control-label"></label>
-                <input asp-for="NumberOfBeds" class="form-control mt-2" id="NumberofBeds" />
+                <label asp-for="NumberOfBeds" class="form-label"></label>
+                <input asp-for="NumberOfBeds" class="form-control" />
                 <span asp-validation-for="NumberOfBeds" class="text-danger"></span>
             </div>
-            <div class="form-group form-check mt-2">
-                <label class="form-check-label">
-                    <input class="form-check-input mt-2" asp-for="IsAvailable" id="IsAvailableCheckbox" /> @Html.DisplayNameFor(model => model.IsAvailable)
-                </label>
+
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" asp-for="IsAvailable" id="IsAvailableCheckbox" />
+                <label class="form-check-label" asp-for="IsAvailable">@Html.DisplayNameFor(model => model.IsAvailable)</label>
             </div>
 
-            <h3>Residents</h3>
-            <div class="list-group p-2">
+            <div class="mb-3">
+                <h3>Residents</h3>
                 @if (Model.Residents.Any())
                 {
-                    @foreach (var resident in Model.Residents)
-                    {
-                        <div>
-                            <a href="@Url.Action("Details", "Resident", new { id = resident.Id })" class="list-group-item list-group-item-action mt-2">
-                                @resident.FirstName @resident.LastName
-                            </a>
-                            <a asp-controller="Resident" asp-action="RemoveResidentFromRoom"
-                               asp-route-id="@resident.Id" class="btn btn-danger mt-2">
-                                Remove resident from this room
-                            </a>
-                        </div>
-                    }
+                    <ul class="list-group">
+                        @foreach (var resident in Model.Residents)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a class="text-dark" href="@Url.Action("Details", "Resident", new { id = resident.Id })">@resident.FirstName @resident.LastName</a>
+                                <a asp-controller="Resident" asp-action="RemoveResidentFromRoom"
+                                   asp-route-id="@resident.Id" class="btn btn-danger btn-sm">Remove</a>
+                            </li>
+                        }
+                    </ul>
                 }
                 else
                 {
-                    <p>No residents in this room.</p>
+                    <p class="text-muted">No residents in this room.</p>
                 }
             </div>
+
             <div class="form-group">
-                <button type="submit" class="btn btn-primary mt-2">Edit Room</button>
-                <a class="btn btn-secondary mt-2" asp-action="Index">Back</a>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
-  </div>
+    </div>
 </div>
-
 
 @section Scripts {
     @{
@@ -58,9 +58,6 @@
     }
     <script>
         var isAvailableCheckbox = document.getElementById("IsAvailableCheckbox");
-        var NumberofBeds = document.getElementById("NumberofBeds");
-        if (@Model.Residents.Count > 0) {
-            isAvailableCheckbox.disabled = true;
-        }
+        isAvailableCheckbox.disabled = (@Model.Residents.Count > 0);
     </script>
 }

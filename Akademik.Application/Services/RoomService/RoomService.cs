@@ -63,10 +63,19 @@ namespace Akademik.Application.Services.RoomService
             return _mapper.Map<RoomDTO>(room);
         }
 
-        public async Task UpdateRoom(FewRoomInfoAndFewResidentinfoDTO editRoomDto)
+        public async Task UpdateRoom(FewRoomInfoAndFewResidentinfoDTO roomToEdit)
         {
-            var room = _mapper.Map<Room>(editRoomDto);
-            await _roomRepository.Update(room);
+            var existingRoom = await _roomRepository.GetByRoomNumber(roomToEdit.RoomNumber);
+
+            if (existingRoom == null)
+            {
+                throw new ArgumentException($"Room with RoomNumber {roomToEdit.RoomNumber} not found.");
+            }
+
+            existingRoom.NumberOfBeds = roomToEdit.NumberOfBeds;
+            existingRoom.IsAvailable = roomToEdit.IsAvailable;
+
+            await _roomRepository.Update(existingRoom);
         }
     }
 }
