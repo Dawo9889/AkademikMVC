@@ -50,7 +50,7 @@
 
     <div class="mt-4">
         <a asp-controller="Resident" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edytuj</a> 
-        <a class="btn btn-secondary" asp-action="List">Powrót do listy</a>
+        <button class="btn btn-secondary" onclick="history.back()">Powrót</button>
         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
     </div>
 </div>
