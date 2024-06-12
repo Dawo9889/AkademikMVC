@@ -1,4 +1,5 @@
-﻿using Akademik.Domain.Entities;
+﻿using Akademik.Application;
+using Akademik.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace Akademik.Infrastructure.Persistence
         public DbSet<Resident> Residents { get; set; }
         public DbSet<ResidentDetails> ResidentsDetails { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public AkademikDbContext(DbContextOptions<AkademikDbContext> options) : base(options)
         {

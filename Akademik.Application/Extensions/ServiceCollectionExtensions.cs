@@ -6,11 +6,6 @@ using Akademik.Application.Services.RoomService;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Akademik.Application.Extensions
 {
@@ -19,6 +14,9 @@ namespace Akademik.Application.Extensions
 
         public static void AddApplication(this IServiceCollection services)
         {
+
+
+
             services.AddScoped<IResidentService, ResidentService>();
             services.AddScoped<IRoomService, RoomService>();
 
@@ -37,6 +35,10 @@ namespace Akademik.Application.Extensions
             services.AddValidatorsFromAssemblyContaining<RoomDTOValidator>()
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
+
+
+            services.AddHealthChecks();
+            services.AddRazorPages();
         }
     }
 }

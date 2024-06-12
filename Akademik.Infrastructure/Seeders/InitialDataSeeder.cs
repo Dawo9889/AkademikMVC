@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Akademik.Domain.Entities;
+﻿using Akademik.Domain.Entities;
 using Akademik.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Akademik.Infrastructure.Data
 {
@@ -12,16 +9,36 @@ namespace Akademik.Infrastructure.Data
     {
         private readonly AkademikDbContext _context;
         private readonly Random _random = new Random();
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public InitialDataSeeder(AkademikDbContext context)
+        public InitialDataSeeder(AkademikDbContext context, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public async Task SeedAsync()
         {
             if (await _context.Database.CanConnectAsync())
             {
+                if (!await _roleManager.RoleExistsAsync("User"))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole("User"));
+                    await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                }
+                if (!await _context.Users.AnyAsync(u => u.UserName == "admin"))
+                {
+                    var adminUser = new IdentityUser { UserName = "admin", Email = "admin@gmail.com" };
+                    var result = await _userManager.CreateAsync(adminUser, "ZAQ!2wsx");
+
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(adminUser, "Admin");
+                    }
+
+                }
                 // Seed ResidentDetails
                 if (!await _context.ResidentsDetails.AnyAsync())
                 {
