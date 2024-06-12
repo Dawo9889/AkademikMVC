@@ -2,6 +2,7 @@
 using Akademik.Infrastructure.Data;
 using Akademik.Infrastructure.Persistence;
 using Akademik.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,11 @@ namespace Akademik.Infrastructure.Extensions
             services.AddDbContext<AkademikDbContext>(option => option.UseSqlServer(
                 configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDefaultIdentity<IdentityUser>(option => option.SignIn.RequireConfirmedEmail = true)
+                .AddEntityFrameworkStores<AkademikDbContext>();
+
             services.AddScoped<InitialDataSeeder>();
+
 
             services.AddScoped<IResidentRepository, ResidentRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();

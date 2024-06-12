@@ -1,14 +1,10 @@
 ﻿using Akademik.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Akademik.Infrastructure.Persistence
 {
-    public class AkademikDbContext : DbContext
+    public class AkademikDbContext : IdentityDbContext
     {
         public DbSet<Resident> Residents { get; set; }
         public DbSet<ResidentDetails> ResidentsDetails { get; set; }
@@ -16,11 +12,12 @@ namespace Akademik.Infrastructure.Persistence
 
         public AkademikDbContext(DbContextOptions<AkademikDbContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             // Relacja jeden-do-jednego między Resident a ResidentDetails
             modelBuilder.Entity<Resident>()
                 .HasOne(r => r.ResidentDetails)
