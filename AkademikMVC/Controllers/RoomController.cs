@@ -53,19 +53,24 @@ namespace AkademikMVC.Controllers
         {
             if (roomNumber <= 0)
             {
-                return BadRequest("Invalid room number.");
+                return NotFound();
             }
 
             var room = await _roomService.GetRoomWithResidents(roomNumber);
             if (room == null)
             {
-                return NotFound();
+                return RedirectToAction("RoomNotFound");
             }
 
             var viewModel = _mapper.Map<FewRoomInfoAndFewResidentinfoDTO>(room);
             return View(viewModel);
         }
-
+        [HttpGet]
+        [Route("Room/RoomNotFound")]
+        public IActionResult RoomNotFound()
+        {
+            return View();
+        }
         [HttpGet]
         [Route("Room/Delete/{RoomNumber}")]
         public async Task<IActionResult> Delete(int roomNumber)
