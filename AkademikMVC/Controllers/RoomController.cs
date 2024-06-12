@@ -86,9 +86,12 @@ namespace AkademikMVC.Controllers
 
         [HttpGet]
         [Route("Room/Delete/{RoomNumber}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int roomNumber)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("AccessDenied");
+            }
             if (roomNumber == null)
             {
                 return NotFound();
@@ -104,9 +107,12 @@ namespace AkademikMVC.Controllers
 
         [HttpPost, ActionName("Delete")]
         [Route("Room/Delete/{RoomNumber}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int roomNumber)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("AccessDenied");
+            }
             if (roomNumber == null)
             {
                 return NotFound();
@@ -121,9 +127,12 @@ namespace AkademikMVC.Controllers
         }
         [HttpGet]
         [Route("Room/Edit/{roomNumber}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int roomNumber)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("AccessDenied");
+            }
             var roomWithResidents = await _roomService.GetRoomWithResidents(roomNumber);
             if (roomWithResidents == null)
             {
@@ -137,9 +146,12 @@ namespace AkademikMVC.Controllers
 
         [HttpPost, ActionName("Edit")]  
         [Route("Room/Edit/{roomNumber}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateRoom(FewRoomInfoAndFewResidentinfoDTO roomToEdit)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("AccessDenied");
+            }
             var residentsWithoutRoom = (await _residentService.GetResidentWithoutRoom())
                                         .Select(r => new { Id = r.Id, FullName = r.FirstName + " " + r.LastName });
             ViewBag.ResidentsWithoutRoom = residentsWithoutRoom;
@@ -168,6 +180,11 @@ namespace AkademikMVC.Controllers
                  await _roomService.UpdateAvailabilityInRoom(roomToEdit.RoomNumber);
             }
             return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

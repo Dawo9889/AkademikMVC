@@ -20,10 +20,6 @@ namespace AkademikMVC.Controllers
             _roomService = roomService;
             _mapper = mapper;
         }
-
-
-
-
         [HttpGet]
 
         public async Task<IActionResult> List()

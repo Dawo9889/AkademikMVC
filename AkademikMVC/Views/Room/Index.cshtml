@@ -22,7 +22,7 @@
     @foreach (var room in Model)
     {
         <div class="col-md-4">
-            <div class="card m-3 border d-flex flex-column" style="min-height: 390px;">
+            <div class="card m-3 border d-flex flex-column" style="min-height: @(User.IsInRole("Admin") ? "390px" : "200px");">
                 <div class="card-body flex-grow-1">
                     <h3>Room number: @room.RoomNumber</h3>
                     <p>Count of beds: @room.NumberOfBeds</p>
@@ -33,20 +33,33 @@
                         <ul>
                             @foreach (var resident in room.Residents)
                             {
-                                <li class="list-group-item mt-2"><a class="text-dark" asp-action="Details" asp-controller="Resident" asp-route-id="@resident.Id">@resident.FirstName @resident.LastName</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li class="list-group-item mt-2"><a class="text-dark" asp-action="Details" asp-controller="Resident" asp-route-id="@resident.Id">@resident.FirstName @resident.LastName</a></li>
+                                }
+                                else
+                                {
+                                    <li class="list-group-item mt-2"><a>@resident.FirstName @resident.LastName</a></li>
+                                }
                             }
                         </ul>
+                        @if (User.IsInRole("Admin"))
+                        {
                         <p>
                             <a class="btn btn-outline-dark mt-2" onclick="showDeleteAlert()" disabled>Delete</a>
                             <a asp-action="Edit" asp-route-roomNumber="@room.RoomNumber" class="btn btn-outline-primary mt-2">Edit Room</a>
                         </p>
+                        }
                     }
                     else
                     {
-                        <p>
-                            <a asp-action="Delete" asp-route-roomNumber="@room.RoomNumber" class="btn btn-danger mt-2">Delete</a>
-                            <a asp-action="Edit" asp-route-roomNumber="@room.RoomNumber" class="btn btn-outline-primary mt-2">Edit Room</a>
-                        </p>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <p>
+                                <a asp-action="Delete" asp-route-roomNumber="@room.RoomNumber" class="btn btn-danger mt-2">Delete</a>
+                                <a asp-action="Edit" asp-route-roomNumber="@room.RoomNumber" class="btn btn-outline-primary mt-2">Edit Room</a>
+                            </p>
+                        }
                     }
                 </div>
             </div>

@@ -24,7 +24,13 @@
                 @foreach (var resident in Model.Residents)
                 {
                     <li class="list-group-item">
+                        @if (User.IsInRole("Admin"))
+                        {
                         <a asp-controller="Resident" asp-action="Details" asp-route-id="@resident.Id" class="btn btn-secondary">
+                            @resident.FirstName @resident.LastName
+                        </a>
+                        }
+                        <a class="list-group-item">
                             @resident.FirstName @resident.LastName
                         </a>
                     </li>
@@ -38,7 +44,10 @@
     </div>
 
     <div class="card-footer">
+        @if (User.IsInRole("Admin"))
+        {
         <a asp-action="Edit" asp-route-roomNumber="@Model.RoomNumber" class="btn btn-primary">Edit</a>
+        }
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 </div>
