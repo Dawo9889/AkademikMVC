@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace AkademikMVC.Controllers
 {
-
+    [Authorize(Roles = "Admin")]
     public class ResidentController : Controller
     {
 
@@ -25,7 +25,7 @@ namespace AkademikMVC.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> List()
         {
             var residents = await _residentService.GetAll();

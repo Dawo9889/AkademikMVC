@@ -113,5 +113,14 @@ namespace Akademik.Application.Services.ResidentService
                 await UpdateRoomAvailability(resident.RoomNumber);
             }
         }
+
+        public async Task<DetailsResidentDTO?> GetDetailsByEmailAsync(string Email)
+        {
+            var details = await _residentRepository.GetDetailsByEmailAsync(Email);
+            return _mapper.Map<DetailsResidentDTO>(details);
+
+        }
+
+
     }
 }

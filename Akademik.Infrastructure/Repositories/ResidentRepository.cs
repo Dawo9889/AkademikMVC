@@ -2,12 +2,6 @@
 using Akademik.Domain.Interfaces;
 using Akademik.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Akademik.Infrastructure.Repositories
 {
@@ -24,23 +18,23 @@ namespace Akademik.Infrastructure.Repositories
         {
             _context.Residents.Add(resident);
             await _context.SaveChangesAsync();
-            
+
         }
 
         public async Task Delete(int id)
         {
             var resident = await _context.Residents
-                .Include(r => r.ResidentDetails) 
+                .Include(r => r.ResidentDetails)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (resident != null)
             {
                 if (resident.ResidentDetails != null)
                 {
-                    _context.ResidentsDetails.Remove(resident.ResidentDetails); 
+                    _context.ResidentsDetails.Remove(resident.ResidentDetails);
                 }
 
-                _context.Residents.Remove(resident); 
+                _context.Residents.Remove(resident);
                 await _context.SaveChangesAsync();
             }
         }
@@ -66,7 +60,7 @@ namespace Akademik.Infrastructure.Repositories
         public async Task<Resident?> GetDetails(int id)
         {
             return await _context.Residents
-                        .Include(r => r.ResidentDetails) 
+                        .Include(r => r.ResidentDetails)
                         .FirstOrDefaultAsync(r => r.Id == id);
         }
 
@@ -92,6 +86,13 @@ namespace Akademik.Infrastructure.Repositories
                 _context.Residents.Update(resident);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<Resident?> GetDetailsByEmailAsync(string email)
+        {
+            return await _context.Residents
+                    .Include(r => r.ResidentDetails)
+                    .FirstOrDefaultAsync(r => r.ResidentDetails.Email == email);
         }
     }
 }

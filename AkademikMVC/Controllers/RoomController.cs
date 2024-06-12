@@ -1,15 +1,12 @@
-﻿using Akademik.Application.DTO.ResidentDTO;
-using Akademik.Application.DTO.RoomDTO;
+﻿using Akademik.Application.DTO.RoomDTO;
 using Akademik.Application.Services.RoomService;
-using Akademik.Domain.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace AkademikMVC.Controllers
 {
+
     public class RoomController : Controller
     {
         private readonly IRoomService _roomService;
@@ -19,10 +16,13 @@ namespace AkademikMVC.Controllers
             _roomService = roomService;
             _mapper = mapper;
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(RoomDTO roomDto)
         {
@@ -33,7 +33,10 @@ namespace AkademikMVC.Controllers
             }
             return View(roomDto);
         }
+
+
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var rooms = await _roomService.GetAll();
@@ -47,8 +50,10 @@ namespace AkademikMVC.Controllers
 
             return View(viewModel);
         }
+
         [HttpGet]
         [Route("Room/Details/{roomNumber?}")]
+        [Authorize]
         public async Task<IActionResult> Details(int roomNumber)
         {
             if (roomNumber <= 0)
@@ -65,14 +70,20 @@ namespace AkademikMVC.Controllers
             var viewModel = _mapper.Map<FewRoomInfoAndFewResidentinfoDTO>(room);
             return View(viewModel);
         }
+
+
         [HttpGet]
         [Route("Room/RoomNotFound")]
+
         public IActionResult RoomNotFound()
         {
             return View();
         }
+
+
         [HttpGet]
         [Route("Room/Delete/{RoomNumber}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int roomNumber)
         {
             if (roomNumber == null)
@@ -90,6 +101,7 @@ namespace AkademikMVC.Controllers
 
         [HttpPost, ActionName("Delete")]
         [Route("Room/Delete/{RoomNumber}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int roomNumber)
         {
             if (roomNumber == null)
@@ -106,6 +118,7 @@ namespace AkademikMVC.Controllers
         }
         [HttpGet]
         [Route("Room/Edit/{roomNumber}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int roomNumber)
         {
             var roomWithResidents = await _roomService.GetRoomWithResidents(roomNumber);
@@ -119,6 +132,7 @@ namespace AkademikMVC.Controllers
 
         [HttpPost, ActionName("Edit")]
         [Route("Room/Edit/{roomNumber}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateRoom(FewRoomInfoAndFewResidentinfoDTO roomToEdit)
         {
             if (!ModelState.IsValid)
