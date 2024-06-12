@@ -22,7 +22,6 @@
                 <input type="checkbox" class="form-check-input" asp-for="IsAvailable" id="IsAvailableCheckbox" />
                 <label class="form-check-label" asp-for="IsAvailable">@Html.DisplayNameFor(model => model.IsAvailable)</label>
             </div>
-
             <div class="mb-3">
                 <h3>Residents</h3>
                 @if (Model.Residents.Any())
@@ -43,7 +42,22 @@
                     <p class="text-muted">No residents in this room.</p>
                 }
             </div>
+            @if(Model.IsAvailable == true)
+            {
+            <input type="hidden" asp-for="RoomNumber" />
 
+            <h3>Room Assignment</h3>
+            <div class="row">
+                <div class="col-md-2">
+                    <label asp-for="SelectedResidentId" class="form-label">Choose resident:</label>
+                </div>
+                <div class="col-md-10">
+                    <select asp-for="SelectedResidentId" class="form-control" asp-items="@(new SelectList(ViewBag.ResidentsWithoutRoom, "Id", "FullName"))">
+                        <option value="">-- Choose resident --</option>
+                    </select>
+                </div>
+            </div>    
+            }
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
                 <a asp-action="Index" class="btn btn-secondary">Back to List</a>

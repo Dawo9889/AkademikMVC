@@ -77,5 +77,9 @@ namespace Akademik.Application.Services.RoomService
 
             await _roomRepository.Update(existingRoom);
         }
+        public async Task AddResidentToRoom(int roomNumber, int residentId)
+        {
+            await _roomRepository.AddResidentToRoom(roomNumber, residentId);
+        }
     }
 }

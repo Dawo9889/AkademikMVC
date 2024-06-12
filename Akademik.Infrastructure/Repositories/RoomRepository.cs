@@ -85,5 +85,21 @@ namespace Akademik.Infrastructure.Repositories
             _akademikDbContext.Update(room);
             await _akademikDbContext.SaveChangesAsync();
         }
+        public async Task AddResidentToRoom(int roomNumber, int residentId)
+        {
+            var room = await _akademikDbContext.Rooms.Include(r => r.Residents)
+                .FirstOrDefaultAsync(r => r.RoomNumber == roomNumber);
+
+            if (room == null)
+                throw new ArgumentException("Room not found.");
+
+            var resident = await _akademikDbContext.Residents.FindAsync(residentId);
+
+            if (resident == null)
+                throw new ArgumentException("Resident not found.");
+
+            room.Residents.Add(resident);
+            await _akademikDbContext.SaveChangesAsync();
+        }
     }
 }

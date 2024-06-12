@@ -93,5 +93,10 @@ namespace Akademik.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<ICollection<Resident>> GetResidentsWithoutRoom()
+        {
+            return await _context.Residents.Where(r => r.RoomNumber == null).ToListAsync();
+        }
     }
 }

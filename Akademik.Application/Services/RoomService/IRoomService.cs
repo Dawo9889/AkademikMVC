@@ -19,5 +19,6 @@ namespace Akademik.Application.Services.RoomService
         Task<RoomDTO> GetRoomByNumber(int id);
         Task<FewRoomInfoAndFewResidentinfoDTO> GetRoomWithResidents(int roomNumber);
         Task UpdateRoom(FewRoomInfoAndFewResidentinfoDTO editRoomDto);
+        Task AddResidentToRoom(int roomNumber, int residentId);
     }
 }

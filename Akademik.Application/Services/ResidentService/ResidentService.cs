@@ -113,5 +113,11 @@ namespace Akademik.Application.Services.ResidentService
                 await UpdateRoomAvailability(resident.RoomNumber);
             }
         }
+
+        public async Task<IEnumerable<FewResidentInfoDTO>> GetResidentWithoutRoom()
+        {
+            var residents = await _residentRepository.GetResidentsWithoutRoom();
+            return _mapper.Map<IEnumerable<FewResidentInfoDTO>>(residents);
+        }
     }
 }

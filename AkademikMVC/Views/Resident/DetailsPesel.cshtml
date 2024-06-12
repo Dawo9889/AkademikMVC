@@ -1,0 +1,80 @@
+﻿@model Akademik.Application.DTO.ResidentDTO.DetailsResidentDTO
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Resident Details";
+}
+
+<h2>Resident Details</h2>
+
+<form asp-controller="Resident" asp-action="DetailsPesel" method="get">
+    <div class="input-group mb-3">
+        <input type="number" class="form-control" placeholder="Search by resident PESEL..." name="PESEL">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    <div class="card">
+        <div class="card-header">
+            <h3>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Id)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Id)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PESEL)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PESEL)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Email)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StudentCardNumber)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.StudentCardNumber)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Street)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Street)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.City)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.City)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Country)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Country)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PostalCode)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PostalCode)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.RoomNumber)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.RoomNumber)</dd>
+                    </dl>
+                </div>
+                <div class="col-md-4 text-center">
+                    @if (Model.Photo != null)
+                    {
+                        <img src="data:image/jpeg;base64,@System.Convert.ToBase64String(Model.Photo)"
+                             alt="Zdjęcie mieszkańca" class="img-thumbnail" style="max-width: 200px;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Brak zdjęcia</span>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+}
+else
+{
+    <p class="text-muted">Resident not found.</p>
+}

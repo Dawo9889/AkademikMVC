@@ -77,11 +77,11 @@
         <dd class="col-sm-10">
             @if (Model.Photo != null)
             {
-                <img src="data:image/jpeg;base64,@System.Convert.ToBase64String(Model.Photo)" alt="Zdjęcie mieszkańca" />
+                <img src="data:image/jpeg;base64,@System.Convert.ToBase64String(Model.Photo)" alt="Resident picture" />
             }
             else
             {
-                <span>Brak zdjęcia</span>
+                <span>No picture</span>
             }
         </dd>
         <dt class = "col-sm-2">
@@ -94,6 +94,6 @@
     
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-danger" /> 
-        <a class="btn btn-secondary" asp-action="List">Powrót do listy</a>
+        <a class="btn btn-secondary" asp-action="List">Go back</a>
     </form>
 </div>

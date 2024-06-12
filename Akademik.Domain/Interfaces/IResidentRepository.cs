@@ -9,6 +9,7 @@ namespace Akademik.Domain.Interfaces
         Task Delete(int id);
         Task RemoveResidentFromFroom(int id);
         Task<ICollection<Resident>> GetAll();
+        Task<ICollection<Resident>> GetResidentsWithoutRoom();
         Task<Resident?> GetByPESEL(string Pesel);
         Task<Resident?> GetByStudentCardNumber(string studentCardNumber);
         Task<Resident?> GetByResidentId(int Residentid);

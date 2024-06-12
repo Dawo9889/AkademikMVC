@@ -1,5 +1,6 @@
 ﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Application.DTO.RoomDTO;
+using Akademik.Application.Services.ResidentService;
 using Akademik.Application.Services.RoomService;
 using Akademik.Domain.Entities;
 using AutoMapper;
@@ -14,10 +15,12 @@ namespace AkademikMVC.Controllers
     {
         private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
-        public RoomController(IRoomService roomService, IMapper mapper)
+        private readonly IResidentService _residentService;
+        public RoomController(IRoomService roomService, IMapper mapper, IResidentService residentService)
         {
             _roomService = roomService;
             _mapper = mapper;
+            _residentService = residentService;
         }
         public IActionResult Create()
         {
@@ -53,7 +56,7 @@ namespace AkademikMVC.Controllers
         {
             if (roomNumber <= 0)
             {
-                return NotFound();
+                return RedirectToAction("RoomNotFound");
             }
 
             var room = await _roomService.GetRoomWithResidents(roomNumber);
@@ -113,18 +116,27 @@ namespace AkademikMVC.Controllers
             {
                 return NotFound();
             }
-
+            var residentsWithoutRoom = (await _residentService.GetResidentWithoutRoom())
+                                        .Select(r => new { Id = r.Id, FullName = r.FirstName + " " + r.LastName });
+            ViewBag.ResidentsWithoutRoom = residentsWithoutRoom;
             return View(roomWithResidents);
         }
 
-        [HttpPost, ActionName("Edit")]
+        [HttpPost, ActionName("Edit")]  
         [Route("Room/Edit/{roomNumber}")]
         public async Task<IActionResult> UpdateRoom(FewRoomInfoAndFewResidentinfoDTO roomToEdit)
         {
+            var residentsWithoutRoom = (await _residentService.GetResidentWithoutRoom())
+                                        .Select(r => new { Id = r.Id, FullName = r.FirstName + " " + r.LastName });
+            ViewBag.ResidentsWithoutRoom = residentsWithoutRoom;
             if (!ModelState.IsValid)
             {
                 var newRoom = await _roomService.GetRoomWithResidents(roomToEdit.RoomNumber);
                 return View(newRoom);
+            }
+            if (roomToEdit.SelectedResidentId > 0)
+            {
+                await _roomService.AddResidentToRoom(roomToEdit.RoomNumber, roomToEdit.SelectedResidentId);
             }
             var room = await _roomService.GetRoomWithResidents(roomToEdit.RoomNumber);
 
@@ -137,7 +149,10 @@ namespace AkademikMVC.Controllers
                 }
             }
             await _roomService.UpdateRoom(roomToEdit);
-            await _roomService.UpdateAvailabilityInRoom(roomToEdit.RoomNumber);
+            if(roomToEdit.IsAvailable == true)
+            {
+                 await _roomService.UpdateAvailabilityInRoom(roomToEdit.RoomNumber);
+            }
             return RedirectToAction(nameof(Index));
         }
     }

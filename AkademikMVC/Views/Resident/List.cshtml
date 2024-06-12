@@ -9,6 +9,12 @@
 <p>
     <a asp-action="Create" class="btn btn-secondary">Add a resident</a>
 </p>
+<form asp-controller="Resident" asp-action="DetailsByPesel" method="get">
+    <div class="input-group mb-3">
+        <input type="number" class="form-control" placeholder="Search by resident PESEL..." name="PESEL">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+</form>
 <div class="row">
     @foreach (var item in Model)
     {

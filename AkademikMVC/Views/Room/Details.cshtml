@@ -4,16 +4,14 @@
     ViewData["Title"] = "Room Details";
 }
 
-<div class="card">
-    <div class="card-header">
-        <h2>Room Details</h2>
-        <form asp-controller="Room" asp-action="Details" method="get">
-            <div class="input-group mb-3">
-                <input type="number" class="form-control" placeholder="Search by room number..." name="roomNumber">
-                <button class="btn btn-outline-secondary" type="submit">Search</button>
-            </div>
-        </form>
+<h2>Room Details</h2>
+<form asp-controller="Room" asp-action="Details" method="get">
+    <div class="input-group mb-3">
+        <input type="number" class="form-control" placeholder="Search by room number..." name="roomNumber">
+         <button class="btn btn-outline-secondary" type="submit">Search</button>
     </div>
+</form>
+<div class="card">
     <div class="card-body flex-grow-1">
         <h5 class="card-title">Room Number: @Model.RoomNumber</h5>
         <p class="card-text">Number of Beds: @Model.NumberOfBeds</p>

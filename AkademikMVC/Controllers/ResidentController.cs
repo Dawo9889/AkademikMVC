@@ -45,6 +45,34 @@ namespace AkademikMVC.Controllers
             return View(details);
         }
         [HttpGet]
+        [Route("Resident/DetailsByPesel/{PESEL?}")]
+        public async Task<IActionResult> DetailsPesel(string PESEL)
+        {
+            if(PESEL == string.Empty)
+            {
+                return RedirectToAction("ResidentNotFound");
+            }
+            var resident = await _residentService.GetByPESEL(PESEL);
+            if(resident == null)
+            {
+                return RedirectToAction("ResidentNotFound");
+            }
+            var details = await _residentService.GetDetails(resident.Id);
+
+            if (details == null)
+            {
+                return RedirectToAction("ResidentNotFound");
+            }
+
+            return View(details);
+        }
+        [HttpGet]
+        [Route("Resident/ResidentNotFound")]
+        public IActionResult ResidentNotFound()
+        {
+            return View();
+        }
+        [HttpGet]
         [Route("Resident/Create")]
         public async Task<IActionResult> Create()
         {
