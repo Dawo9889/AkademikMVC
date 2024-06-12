@@ -114,6 +114,15 @@ namespace Akademik.Application.Services.ResidentService
             }
         }
 
+        public async Task<DetailsResidentDTO?> GetDetailsByEmailAsync(string Email)
+        {
+            var details = await _residentRepository.GetDetailsByEmailAsync(Email);
+            return _mapper.Map<DetailsResidentDTO>(details);
+
+        }
+
+
+
         public async Task<IEnumerable<FewResidentInfoDTO>> GetResidentWithoutRoom()
         {
             var residents = await _residentRepository.GetResidentsWithoutRoom();

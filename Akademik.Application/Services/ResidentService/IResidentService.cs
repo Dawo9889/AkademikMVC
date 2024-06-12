@@ -17,5 +17,6 @@ namespace Akademik.Application.Services.ResidentService
         Task UpdateResidentAsync(ResidentToEditDTO residentToEdit);
         Task<Resident?> GetByPESEL(string Pesel);
         Task<Resident?> GetByResidentId(int Residentid);
+        Task<DetailsResidentDTO> GetDetailsByEmailAsync(string Email);
     }
 }

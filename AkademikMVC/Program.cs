@@ -1,12 +1,14 @@
 using Akademik.Application.Extensions;
 using Akademik.Infrastructure.Data;
 using Akademik.Infrastructure.Extensions;
+using AkademikMVC.Areas.Identity.Pages.Account;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
@@ -27,8 +29,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.MapRazorPages();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
