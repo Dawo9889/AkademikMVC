@@ -42,25 +42,31 @@
                     <p class="text-muted">No residents in this room.</p>
                 }
             </div>
-            @if(Model.IsAvailable == true)
+            @if (Model.IsAvailable == true && Model.countOfResidentsWithoutRoom !=0 )
             {
-            <input type="hidden" asp-for="RoomNumber" />
+                <input type="hidden" asp-for="RoomNumber" />
 
-            <h3>Room Assignment</h3>
-            <div class="row">
-                <div class="col-md-2">
-                    <label asp-for="SelectedResidentId" class="form-label">Choose resident:</label>
+                <div id="RoomAssignment" style="display: @(Model.IsAvailable ? "block" : "none");">
+                    <h3>Room Assignment (Optional)</h3>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label asp-for="SelectedResidentId" class="form-label">Choose resident:</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select asp-for="SelectedResidentId" class="form-control" asp-items="@(new SelectList(ViewBag.ResidentsWithoutRoom, "Id", "FullName"))">
+                                <option value="">-- Choose resident --</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-10">
-                    <select asp-for="SelectedResidentId" class="form-control" asp-items="@(new SelectList(ViewBag.ResidentsWithoutRoom, "Id", "FullName"))">
-                        <option value="">-- Choose resident --</option>
-                    </select>
-                </div>
-            </div>    
+            }
+            else if (Model.IsAvailable == false)
+            {
+                <h3>Room is not available</h3>
             }
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                <button type="submit" class="btn btn-success">Save Changes</button>
+                <a asp-action="Index" class="btn btn-outline-secondary" onclick="history.back()">Go back</a>
             </div>
         </form>
     </div>
@@ -72,6 +78,11 @@
     }
     <script>
         var isAvailableCheckbox = document.getElementById("IsAvailableCheckbox");
+        var roomAssignmentSection = document.getElementById("RoomAssignment");
+
         isAvailableCheckbox.disabled = (@Model.Residents.Count > 0);
+        isAvailableCheckbox.addEventListener('change', function () {
+            roomAssignmentSection.style.display = this.checked ? 'block' : 'none';
+        });
     </script>
 }

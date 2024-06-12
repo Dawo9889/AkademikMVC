@@ -10,7 +10,7 @@
 <form asp-controller="Resident" asp-action="DetailsPesel" method="get">
     <div class="input-group mb-3">
         <input type="number" class="form-control" placeholder="Search by resident PESEL..." name="PESEL">
-        <button class="btn btn-outline-secondary" type="submit">Search</button>
+        <button class="btn btn-outline-dark" type="submit">Search</button>
     </div>
 </form>
 
@@ -63,14 +63,14 @@
                     }
                     else
                     {
-                        <span class="text-muted">Brak zdjęcia</span>
+                        <span class="text-muted">No photo</span>
                     }
                 </div>
             </div>
         </div>
         <div class="card-footer">
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            <a asp-action="List" class="btn btn-outline-secondary">Back to List</a>
         </div>
     </div>
 }

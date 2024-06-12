@@ -141,6 +141,7 @@ namespace AkademikMVC.Controllers
             var residentsWithoutRoom = (await _residentService.GetResidentWithoutRoom())
                                         .Select(r => new { Id = r.Id, FullName = r.FirstName + " " + r.LastName });
             ViewBag.ResidentsWithoutRoom = residentsWithoutRoom;
+            roomWithResidents.countOfResidentsWithoutRoom = residentsWithoutRoom.Count();
             return View(roomWithResidents);
         }
 

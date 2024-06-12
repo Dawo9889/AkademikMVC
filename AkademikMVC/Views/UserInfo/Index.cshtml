@@ -16,43 +16,69 @@
 
         @if (Model != null)
         {
-            <div class="col-md-8">
-                <dl class="row">
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PESEL)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.PESEL)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.FirstName)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.FirstName)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.LastName)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.LastName)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Email)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StudentCardNumber)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.StudentCardNumber)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.PhoneNumber)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Street)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Street)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.City)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.City)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Country)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Country)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PostalCode)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.PostalCode)</dd>
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.RoomNumber)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.RoomNumber)</dd>
-                </dl>
-            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <dl class="row">
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Id)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.Id)</dd>
 
-            <div class="col-md-4 text-center">
-                @if (Model.Photo != null)
-                {
-                    <img src="data:image/jpeg;base64,@System.Convert.ToBase64String(Model.Photo)"
-                         alt="Resident Photo" class="img-thumbnail" style="max-width: 200px;" />
-                }
-                else
-                {
-                    <span class="text-muted">No photo</span>
-                }
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PESEL)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.PESEL)</dd>
+
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Email)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.StudentCardNumber)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.StudentCardNumber)</dd>
+
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Street)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.Street)</dd>
+
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.City)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.City)</dd>
+
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Country)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.Country)</dd>
+
+                                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PostalCode)</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.PostalCode)</dd>
+
+                                <dt class="col-sm-4">
+                                    @Html.DisplayNameFor(model => model.RoomNumber)
+                                </dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.RoomNumber != null)
+                                    {
+                                        @Html.DisplayFor(model => model.RoomNumber)
+                                    }
+                                    else
+                                    {
+                                        <span class="text">You are not assigned to any room</span>
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            @if (Model.Photo != null)
+                            {
+                                <img src="data:image/jpeg;base64,@System.Convert.ToBase64String(Model.Photo)"
+                                     alt="Resident picture" class="img-thumbnail" style="max-width: 200px;" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">No photo</span>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         }
     </div>
