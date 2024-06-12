@@ -7,7 +7,11 @@
 <h2>Rooms</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-secondary">Create New Room</a>
+    @if(User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="btn btn-secondary">Create New Room</a>
+    }
+    
 </p>
 <form asp-controller="Room" asp-action="Details" method="get">
     <div class="input-group mb-3">

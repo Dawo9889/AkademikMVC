@@ -37,6 +37,7 @@ namespace Akademik.Application.Extensions
                 .AddFluentValidationClientsideAdapters();
 
 
+
             services.AddHealthChecks();
             services.AddRazorPages();
         }

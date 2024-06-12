@@ -2,6 +2,7 @@
 using Akademik.Application.Services.ResidentService;
 using Akademik.Application.Services.RoomService;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace AkademikMVC.Controllers
 {
@@ -24,6 +25,7 @@ namespace AkademikMVC.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> List()
         {
             var residents = await _residentService.GetAll();
@@ -175,7 +177,7 @@ namespace AkademikMVC.Controllers
             {
                 return NotFound();
             }
-            return View(residentToEdit);    
+            return View(residentToEdit);
         }
         [HttpPost]
         [Route("Resident/RemoveResidentFromRoom/{id}")]

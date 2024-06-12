@@ -16,9 +16,8 @@ namespace Akademik.Infrastructure.Extensions
             services.AddDbContext<AkademikDbContext>(option => option.UseSqlServer(
                 configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(option => option.SignIn.RequireConfirmedEmail = false)
+            services.AddIdentity<IdentityUser, IdentityRole>(option => option.SignIn.RequireConfirmedEmail = false).AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<AkademikDbContext>();
-
             services.AddScoped<InitialDataSeeder>();
 
 

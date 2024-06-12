@@ -28,17 +28,6 @@ namespace Akademik.Infrastructure.Data
                     await _roleManager.CreateAsync(new IdentityRole("User"));
                     await _roleManager.CreateAsync(new IdentityRole("Admin"));
                 }
-                if (!await _context.Users.AnyAsync(u => u.UserName == "admin"))
-                {
-                    var adminUser = new IdentityUser { UserName = "admin", Email = "admin@gmail.com" };
-                    var result = await _userManager.CreateAsync(adminUser, "ZAQ!2wsx");
-
-                    if (result.Succeeded)
-                    {
-                        await _userManager.AddToRoleAsync(adminUser, "Admin");
-                    }
-
-                }
                 // Seed ResidentDetails
                 if (!await _context.ResidentsDetails.AnyAsync())
                 {
