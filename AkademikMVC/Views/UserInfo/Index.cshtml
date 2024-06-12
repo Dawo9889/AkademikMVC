@@ -1,17 +1,16 @@
 ﻿@model Akademik.Application.DTO.ResidentDTO.DetailsResidentDTO
 
 @{
-    ViewData["Title"] = "Szczegóły";
+    ViewData["Title"] = "Details";
 }
 
 <div class="container">
-    <h1 class="text-center mb-4">Twoje Szczegóły</h1>
+    <h1 class="text-center mb-4">Your Details</h1>
 
     <div class="row">
-        @if(Model == null)
-        {   
-            <h2 class="text-danger align-content-center">Coś poszlo nie tak i w naszym systemie nie jesteś mieszkańcem. Jeżeli uważasz to za błąd, skonsultuj się z Administratorem</h2>
-            
+        @if (Model == null)
+        {
+            <h2 class="text-danger align-content-center">Something went wrong and you are not a resident in our system. If you think this is a mistake, contact the Administrator.</h2>
         }
 
 
@@ -48,22 +47,17 @@
                 @if (Model.Photo != null)
                 {
                     <img src="data:image/jpeg;base64,@System.Convert.ToBase64String(Model.Photo)"
-                         alt="Zdjęcie mieszkańca" class="img-thumbnail" style="max-width: 200px;" />
+                         alt="Resident Photo" class="img-thumbnail" style="max-width: 200px;" />
                 }
                 else
                 {
-                    <span class="text-muted">Brak zdjęcia</span>
+                    <span class="text-muted">No photo</span>
                 }
-
             </div>
         }
-        
-        
     </div>
 
     <div class="mt-4">
-        
-        <button class="btn btn-secondary" onclick="history.back()">Powrót</button>
-       
+        <button class="btn btn-secondary" onclick="history.back()">Back</button>
     </div>
 </div>

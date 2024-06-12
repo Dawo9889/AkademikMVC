@@ -1,15 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Witamy w systemie Akademik!";
+    ViewData["Title"] = "Welcome to the Dormitory System!";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Witaj w systemie Akademika!</h1>
+    <h1 class="display-4">Welcome to the Dormitory System!</h1>
 
     @if (!User.Identity.IsAuthenticated)
     {
         <p>
-            <a class="btn btn-primary btn-lg" asp-area="Identity" asp-page="/Account/Login">Zaloguj się</a>
-            <a class="btn btn-secondary btn-lg" asp-area="Identity" asp-page="/Account/Register">Zarejestruj się</a>
+            <a class="btn btn-primary btn-lg" asp-area="Identity" asp-page="/Account/Login">Log In</a>
+            <a class="btn btn-secondary btn-lg" asp-area="Identity" asp-page="/Account/Register">Register</a>
         </p>
     }
     @if (User.IsInRole("Admin"))
@@ -17,12 +17,12 @@
         <div class="d-flex justify-content-center">
             <div class="m-3">
                 <a asp-controller="Resident" asp-action="List" class="btn btn-primary btn-lg shadow">
-                    <i class="fas fa-home me-2"></i> Zarządzaj mieszkańcami
+                    <i class="fas fa-home me-2"></i> Manage Residents
                 </a>
             </div>
             <div class="m-3">
                 <a asp-controller="Room" asp-action="Index" class="btn btn-secondary btn-lg shadow">
-                    <i class="fas fa-wrench me-2"></i> Zarządzaj pokojami
+                    <i class="fas fa-wrench me-2"></i> Manage Rooms
                 </a>
             </div>
         </div>
@@ -32,12 +32,12 @@
         <div class="d-flex justify-content-center">
             <div class="m-3">
                 <a asp-controller="UserInfo" asp-action="Index" class="btn btn-primary btn-lg shadow">
-                    <i class="fas fa-home me-2"></i> Twoje dane
+                    <i class="fas fa-home me-2"></i> Your Info
                 </a>
             </div>
             <div class="m-3">
                 <a asp-controller="Room" asp-action="Index" class="btn btn-secondary btn-lg shadow">
-                    <i class="fas fa-wrench me-2"></i> Zobacz pokoje
+                    <i class="fas fa-wrench me-2"></i> View Rooms
                 </a>
             </div>
         </div>

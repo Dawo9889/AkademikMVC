@@ -78,33 +78,28 @@
         </div>
     </div>
 
-
     <h3>Room Assignment</h3>
     <div class="row">
         <div class="col-md-2">
-            <label asp-for="RoomNumber" class="form-label">Wybierz pokój:</label>
+            <label asp-for="RoomNumber" class="form-label">Select Room:</label>
         </div>
         <div class="col-md-10">
             <select asp-for="RoomNumber" class="form-control" asp-items="@(new SelectList(ViewBag.AvailableRooms, "RoomNumber", "RoomNumber"))">
-                <option value="">-- Wybierz pokój --</option>
+                <option value="">-- Select Room --</option>
             </select>
             <span asp-validation-for="RoomNumber" class="text-danger"></span>
         </div>
-        
     </div>
 
     <button type="submit" class="btn btn-primary">Create Resident</button>
-
 </form>
 
-
-
-
-
 <div>
-    <a class="btn btn-secondary mt-sm-2" asp-action="List">Powrót do listy</a>
+    <a class="btn btn-secondary mt-sm-2" asp-action="List">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
