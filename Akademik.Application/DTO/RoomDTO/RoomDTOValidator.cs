@@ -24,6 +24,10 @@ namespace Akademik.Application.DTO.RoomDTO
                         context.AddFailure("This room is exists");
                     }
                 });
+            RuleFor(c => c.NumberOfBeds)
+                .NotEmpty().WithMessage("This field cannot be empty")
+                .Must(RoomNumber => RoomNumber >= 1 && RoomNumber <= 3)
+                .WithMessage("The number of beds must be between 1 and 3");
 
         }
     }
