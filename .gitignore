@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /Akademik.Infrastructure/Migrations
 /AkademikMVC/appsettings.json
+/Akademik.Infrastructure/Migrations
+/AkademikMVC/Properties/ServiceDependencies
