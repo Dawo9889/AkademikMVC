@@ -52,7 +52,7 @@
                     @if (User.IsInRole("Admin"))
                     {
                     <div class="card-footer mt-auto">
-                        if (!room.Residents.Any())
+                        @if (!room.Residents.Any())
                         {
                             <a asp-action="Delete" asp-route-roomNumber="@room.RoomNumber" class="btn btn-danger">Delete</a>
                         }
