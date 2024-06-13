@@ -49,8 +49,8 @@ namespace Akademik.Application.DTO.ResidentDTO
              .Must(roomNumber => roomNumber >= 1 && roomNumber <= 1000)
              .WithMessage("Numer pokoju musi być w zakresie od 1 do 1000");
 
-
-
+            RuleFor(c => c.PhotoData)
+                .NotEmpty().WithMessage("Photo is required");
         }
     }
 }
