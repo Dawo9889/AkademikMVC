@@ -7,21 +7,16 @@ namespace Akademik.Domain.Entities
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
         public string PESEL { get; set; }
-
         [Required]
         public string FirstName { get; set; }
-
         [Required]
         public string LastName { get; set; }
-
         public int ResidentDetailsId { get; set; }
 
         [ForeignKey("ResidentDetailsId")]
         public ResidentDetails? ResidentDetails { get; set; }
-
         public int? RoomNumber { get; set; }
 
         [ForeignKey("RoomNumber")]

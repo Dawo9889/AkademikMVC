@@ -15,17 +15,10 @@ namespace Akademik.Domain.Entities
         [Required]
         [StringLength(8)] // Adjust max length as needed
         public string StudentCardNumber { get; set; } = default!;
-
-        
         public string? PhoneNumber { get; set; }
-
         public string? Street { get; set; }
-
         public string? City { get; set; }
-
         public string? Country { get; set; }
-
-        
         public string? PostalCode { get; set; }
 
         [NotMapped] // This property is not mapped to a database column
@@ -33,8 +26,6 @@ namespace Akademik.Domain.Entities
 
         [Column(TypeName = "varbinary(max)")]
         public byte[]? Photo { get; set; }
-
-
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         

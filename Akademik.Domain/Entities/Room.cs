@@ -14,7 +14,6 @@ namespace Akademik.Domain.Entities
         public bool IsAvailable { get; set; } = true;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
         public virtual ICollection<Resident> Residents { get; set; } = new List<Resident>();
     }
 }

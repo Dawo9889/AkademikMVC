@@ -93,7 +93,7 @@ namespace Akademik.Application.Services.ResidentService
         {
             using (var image = Image.Load(imageFile.OpenReadStream()))
             {
-                image.Mutate(x => x.Resize(300, 300)); // Adjust dimensions as needed
+                image.Mutate(x => x.Resize(220, 300)); // Adjust dimensions as needed
 
                 using (var memoryStream = new MemoryStream())
                 {

@@ -13,7 +13,7 @@ namespace Akademik.Application.DTO.ResidentDTO
         public ResidentToEditDTOValidator(IResidentRepository residentRepository)
         {
             RuleFor(c => c.PESEL)
-               .NotEmpty().WithMessage("Numer pokoju jest wymagany")
+               .NotEmpty().WithMessage("Room number is required")
                .Length(11)
                .Must(value => long.TryParse(value, out _)).WithMessage("PESEL must contains 11 digits.");
 
@@ -33,7 +33,7 @@ namespace Akademik.Application.DTO.ResidentDTO
             RuleFor(c => c.RoomNumber)
              .NotEmpty().WithMessage("The RoomNumber field is required.")
              .Must(roomNumber => roomNumber >= 1 && roomNumber <= 1000)
-             .WithMessage("Numer pokoju musi być w zakresie od 1 do 1000");
+             .WithMessage("Room bumber must be between 1 and 1000");
 
             RuleFor(c => c.PhotoData)
                 .NotEmpty().WithMessage("Photo is required");

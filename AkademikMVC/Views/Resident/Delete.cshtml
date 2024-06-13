@@ -91,9 +91,22 @@
             @Html.DisplayFor(model => model.RoomNumber)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> 
+    @if (Model.Email == "hubert.bojda.work@gmail.com" || Model.Email == "dawoltis9889@gmail.com")
+    {
+        <a class="btn btn-danger" onclick="showDeleteAlert()">Delete</a>
         <a class="btn btn-secondary" asp-action="List">Go back</a>
-    </form>
+    }
+    else
+    {
+        <form asp-action="Delete">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a class="btn btn-secondary" asp-action="List">Go back</a>
+        </form>
+    }
+    
 </div>
+<script>
+    function showDeleteAlert() {
+        alert("You cannot remove owner of this application!");
+    }
+</script>
