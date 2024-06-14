@@ -1,7 +1,7 @@
 ## Credentials to an admin user to manage dormitory:
 ### user: administrator@akademik.com
 ### password: Akademik1@
-### url to our application on azure https://akademik-mvc.azurewebsites.net'
+### url to our application on azure https://akademik-mvc.azurewebsites.net
 ### Technology stack:
 #### - ASP.NET MVC
 #### - Entity Framework
