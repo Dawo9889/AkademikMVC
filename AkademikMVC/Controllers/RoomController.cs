@@ -142,6 +142,7 @@ namespace AkademikMVC.Controllers
                                         .Select(r => new { Id = r.Id, FullName = r.FirstName + " " + r.LastName });
             ViewBag.ResidentsWithoutRoom = residentsWithoutRoom;
             roomWithResidents.countOfResidentsWithoutRoom = residentsWithoutRoom.Count();
+           
             return View(roomWithResidents);
         }
 
@@ -174,6 +175,10 @@ namespace AkademikMVC.Controllers
                 {
                     _mapper.Map(residentDto, existingResident);
                 }
+            }
+            if (roomToEdit.Residents.Count() < roomToEdit.NumberOfBeds)
+            {
+                roomToEdit.IsAvailable = true;
             }
             await _roomService.UpdateRoom(roomToEdit);
             if(roomToEdit.IsAvailable == true)
