@@ -21,20 +21,17 @@ namespace AkademikMVC.Controllers
             _roomService = roomService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Create()
+        [HttpGet("{residentId}/{roomNumber}")]
+        public async Task<IActionResult> Create(int residentId, int roomNumber)
         {
-            if(!User.Identity.IsAuthenticated)
+
+            var malfunctionDto = new CreateMalfunctionDTO
             {
-                var roomNumber = 99999;
-            }
-            var resident = await _residentService.GetDetailsByStudentCardNumber(User.Identity.Name);
-            if (resident == null)
-            {
-                var roomNumber = resident.RoomNumber;
-                ViewBag.RoomNumber = roomNumber;
-            }
-            return View();
+                ResidentId = residentId,
+                RoomNumber = roomNumber
+            };
+
+            return View(malfunctionDto);
         }
 
         [HttpPost]
@@ -44,21 +41,9 @@ namespace AkademikMVC.Controllers
             {
                 return View(malfunctionDto);
             }
-            
-            var resident = await _residentService.GetDetailsByStudentCardNumber(User.Identity.Name);
-            if (resident != null)
-            {
-                malfunctionDto.ResidentId = int.Parse(resident.Id);
-                malfunctionDto.RoomNumber = 101;
-            }
-            else
-            {
-                malfunctionDto.ResidentId = 1;
-                malfunctionDto.RoomNumber = 101;
-            }
-            
+           
             await _malfunctionService.Create(malfunctionDto);
-            return Ok();
+            return RedirectToAction("Index", "UserInfo");
         }
     }
 }

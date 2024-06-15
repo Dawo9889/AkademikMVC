@@ -76,6 +76,16 @@
                         </div>
                     </div>
                 </div>
+                @if (Model.RoomNumber != null)
+                {
+                    <a class="btn btn-secondary"
+                       asp-controller="Malfunction"
+                       asp-action="Create"
+                       asp-route-residentId="Id"
+                       asp-route-roomNumber="RoomNumber">
+                        Report an issue in Your Room
+                    </a>
+                }
             </div>
         }
     </div>
@@ -83,7 +93,6 @@
     <div class="mt-4">
         <button class="btn btn-secondary" onclick="history.back()">Back</button>
     </div>
-    <div class="mt-4">
-        <button class="btn btn-secondary" asp-controller="Malfunction" asp-action="Create">Report an issue</button>
-    </div>
+    
+    
 </div>
