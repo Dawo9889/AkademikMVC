@@ -1,6 +1,7 @@
 ﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Application.Services.ResidentService;
 using Akademik.Application.Services.RoomService;
+using Akademik.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -180,7 +181,19 @@ namespace AkademikMVC.Controllers
                     return View(residentToEdit);
                 }
             }
+            if (oldResident.ResidentDetails.StudentCardNumber != residentToEdit.StudentCardNumber)
+            {
+                
+                var existingResident = await _residentService.GetDetailsByStudentCardNumber(residentToEdit.StudentCardNumber);
 
+                if (existingResident != null)
+                {
+                    var availableRooms = await _roomService.GetAllAvailableRooms();
+                    ViewBag.AvailableRooms = availableRooms;
+                    ModelState.AddModelError("StudentCardNumber", "Taka karta studencka już jest w bazie");
+                    return View(residentToEdit);
+                }
+            }
             var oldRoomNumber = (int)TempData["OldRoomNumber"];
 
             await _residentService.UpdateResidentAsync(residentToEdit);

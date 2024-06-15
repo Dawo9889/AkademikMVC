@@ -1,14 +1,13 @@
 {
   "dependencies": {
-    "mssql1": {
-      "ignored": "true",
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:DefaultConnection"
-    },
     "mssql2": {
       "ignored": "true",
       "type": "mssql",
       "connectionId": "ConnectionStrings:AkademikDbContextConnection"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:DefaultConnection"
     }
   }
 }

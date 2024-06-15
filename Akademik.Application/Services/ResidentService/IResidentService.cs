@@ -18,5 +18,6 @@ namespace Akademik.Application.Services.ResidentService
         Task<Resident?> GetByPESEL(string Pesel);
         Task<Resident?> GetByResidentId(int Residentid);
         Task<DetailsResidentDTO> GetDetailsByEmailAsync(string Email);
+        Task<DetailsResidentDTO> GetDetailsByStudentCardNumber(string studentCardNumber);
     }
 }

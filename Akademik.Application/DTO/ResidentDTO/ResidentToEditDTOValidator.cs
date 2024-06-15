@@ -13,16 +13,19 @@ namespace Akademik.Application.DTO.ResidentDTO
         public ResidentToEditDTOValidator(IResidentRepository residentRepository)
         {
             RuleFor(c => c.PESEL)
-               .NotEmpty().WithMessage("Room number is required")
+               .NotEmpty().WithMessage("PESEL is required")
                .Length(11)
                .Must(value => long.TryParse(value, out _)).WithMessage("PESEL must contains 11 digits.");
+
+
 
 
 
             RuleFor(c => c.StudentCardNumber)
                 .NotEmpty()
                 .Length(8);
-               
+                
+
 
 
             RuleFor(c => c.Email)

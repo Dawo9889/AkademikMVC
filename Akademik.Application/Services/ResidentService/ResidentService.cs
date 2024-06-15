@@ -73,7 +73,10 @@ namespace Akademik.Application.Services.ResidentService
             {
                 resident.ResidentDetails.Photo = ProcessImage(resident.ResidentDetails.PhotoData);
             }
+            
             await _residentRepository.UpdateAsync(resident);
+            await _residentRepository.RemoveUnassignedResidentDetails();
+
         }
 
         public async Task<Resident?> GetByPESEL(string Pesel)
@@ -121,12 +124,18 @@ namespace Akademik.Application.Services.ResidentService
 
         }
 
-
+        public async Task<DetailsResidentDTO> GetDetailsByStudentCardNumber(string studentCardNumber)
+        {
+            var details = await _residentRepository.GetDetailsByStudentCardNumberAsync(studentCardNumber);
+            return _mapper.Map<DetailsResidentDTO>(details);
+        }
 
         public async Task<IEnumerable<FewResidentInfoDTO>> GetResidentWithoutRoom()
         {
             var residents = await _residentRepository.GetResidentsWithoutRoom();
             return _mapper.Map<IEnumerable<FewResidentInfoDTO>>(residents);
         }
+
+       
     }
 }

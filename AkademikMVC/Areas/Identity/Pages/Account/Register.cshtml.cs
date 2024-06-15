@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -81,6 +82,9 @@ namespace AkademikMVC.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+            [Required]
+            [Display(Name = "Numer Karty Studenckiej")]
+            public string StudentCardNumber { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -117,10 +121,16 @@ namespace AkademikMVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                var existingUser = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == Input.StudentCardNumber);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("Input.StudentCardNumber", "Numer karty studenckiej jest ju¿ u¿ywany.");
+                    return Page(); 
+                }
 
                 var user = CreateUser();
-
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                user.StudentCardNumber = Input.StudentCardNumber;
+                await _userStore.SetUserNameAsync(user, Input.StudentCardNumber, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

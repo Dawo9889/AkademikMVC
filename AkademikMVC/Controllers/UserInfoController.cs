@@ -18,7 +18,7 @@ namespace AkademikMVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var details = await _residentService.GetDetailsByEmailAsync(User.Identity.Name);
+            var details = await _residentService.GetDetailsByStudentCardNumber(User.Identity.Name);
 
             if (details == null)
             {

@@ -17,5 +17,7 @@ namespace Akademik.Domain.Interfaces
         Task UpdateAsync(Resident resident);
         Task<int> GetCountResidentsInRoom(int roomNumber);
         Task<Resident> GetDetailsByEmailAsync(string email);
+        Task<Resident?> GetDetailsByStudentCardNumberAsync(string studentCardNumber);
+        Task RemoveUnassignedResidentDetails();
     }
 }
