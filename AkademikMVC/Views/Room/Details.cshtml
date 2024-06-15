@@ -26,7 +26,7 @@
                     <li class="list-group-item">
                         @if (User.IsInRole("Admin"))
                         {
-                        <a asp-controller="Resident" asp-action="Details" asp-route-id="@resident.Id" class="btn btn-secondary">
+                            <a asp-controller="Resident" asp-action="Details" asp-route-id="@resident.Id" class="text-dark">
                             @resident.FirstName @resident.LastName
                             </a>
                         }
