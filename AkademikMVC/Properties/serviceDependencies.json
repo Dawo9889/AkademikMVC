@@ -9,10 +9,6 @@
       "ignored": "true",
       "type": "mssql",
       "connectionId": "ConnectionStrings:AkademikDbContextConnection"
-    },
-    "mssql3": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings"
     }
   }
 }
