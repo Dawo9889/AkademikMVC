@@ -1,6 +1,7 @@
 ﻿using Akademik.Application.DTO.ResidentDTO;
 using Akademik.Application.DTO.RoomDTO;
 using Akademik.Application.Mappings;
+using Akademik.Application.Services.MalfunctionService;
 using Akademik.Application.Services.ResidentService;
 using Akademik.Application.Services.RoomService;
 using FluentValidation;
@@ -19,6 +20,7 @@ namespace Akademik.Application.Extensions
 
             services.AddScoped<IResidentService, ResidentService>();
             services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IMalfunctionService, MalfunctionService>();
 
             services.AddAutoMapper(typeof(ResidentMappingProfiles));
 
@@ -36,7 +38,7 @@ namespace Akademik.Application.Extensions
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
-
+            services.AddAutoMapper(typeof(MalfunctionMappingProfiles));
 
             services.AddHealthChecks();
             services.AddRazorPages();

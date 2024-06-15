@@ -21,5 +21,7 @@ namespace Akademik.Domain.Entities
 
         [ForeignKey("RoomNumber")]
         public Room? Room { get; set; }
+
+        public virtual ICollection<Malfunction> Malfunctions { get; set; } = new List<Malfunction>();
     }
 }

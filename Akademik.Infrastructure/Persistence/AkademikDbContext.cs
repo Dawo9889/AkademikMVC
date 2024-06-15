@@ -10,6 +10,7 @@ namespace Akademik.Infrastructure.Persistence
         public DbSet<Resident> Residents { get; set; }
         public DbSet<ResidentDetails> ResidentsDetails { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Malfunction> Malfunctions { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public AkademikDbContext(DbContextOptions<AkademikDbContext> options) : base(options)
@@ -30,7 +31,17 @@ namespace Akademik.Infrastructure.Persistence
             modelBuilder.Entity<Room>()
                 .HasMany(r => r.Residents)
                 .WithOne(r => r.Room)
-                .HasForeignKey(r => r.RoomNumber); // Zmieniono na RoomId, zgodnie z nową strukturą encji
+                .HasForeignKey(r => r.RoomNumber);
+
+            modelBuilder.Entity<Malfunction>()
+                .HasOne(m => m.Resident)
+                .WithMany(r => r.Malfunctions)
+                .HasForeignKey(m => m.ResidentId);
+
+            modelBuilder.Entity<Malfunction>()
+                .HasOne(m => m.Room)
+                .WithMany(r => r.Malfunctions)
+                .HasForeignKey(m => m.RoomNumber);
 
         }
 

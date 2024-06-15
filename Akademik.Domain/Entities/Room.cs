@@ -15,5 +15,7 @@ namespace Akademik.Domain.Entities
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public virtual ICollection<Resident> Residents { get; set; } = new List<Resident>();
+
+        public virtual ICollection<Malfunction> Malfunctions { get; set; } = new List<Malfunction>();
     }
 }

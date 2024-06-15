@@ -22,6 +22,48 @@ namespace Akademik.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Akademik.Domain.Entities.Malfunction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<DateTime>("ReportedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ResidentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResidentId");
+
+                    b.HasIndex("RoomNumber");
+
+                    b.ToTable("Malfunctions");
+                });
+
             modelBuilder.Entity("Akademik.Domain.Entities.Resident", b =>
                 {
                     b.Property<int>("Id")
@@ -339,6 +381,25 @@ namespace Akademik.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
+            modelBuilder.Entity("Akademik.Domain.Entities.Malfunction", b =>
+                {
+                    b.HasOne("Akademik.Domain.Entities.Resident", "Resident")
+                        .WithMany("Malfunctions")
+                        .HasForeignKey("ResidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Akademik.Domain.Entities.Room", "Room")
+                        .WithMany("Malfunctions")
+                        .HasForeignKey("RoomNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resident");
+
+                    b.Navigation("Room");
+                });
+
             modelBuilder.Entity("Akademik.Domain.Entities.Resident", b =>
                 {
                     b.HasOne("Akademik.Domain.Entities.ResidentDetails", "ResidentDetails")
@@ -407,8 +468,15 @@ namespace Akademik.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Akademik.Domain.Entities.Resident", b =>
+                {
+                    b.Navigation("Malfunctions");
+                });
+
             modelBuilder.Entity("Akademik.Domain.Entities.Room", b =>
                 {
+                    b.Navigation("Malfunctions");
+
                     b.Navigation("Residents");
                 });
 #pragma warning restore 612, 618

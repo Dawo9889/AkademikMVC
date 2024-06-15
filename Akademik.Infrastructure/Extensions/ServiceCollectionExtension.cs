@@ -23,6 +23,7 @@ namespace Akademik.Infrastructure.Extensions
 
             services.AddScoped<IResidentRepository, ResidentRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IMalfunctionRepository, MalfunctionRepository>();
 
         }
     }
