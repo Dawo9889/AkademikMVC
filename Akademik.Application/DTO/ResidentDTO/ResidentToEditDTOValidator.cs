@@ -22,9 +22,11 @@ namespace Akademik.Application.DTO.ResidentDTO
 
 
             RuleFor(c => c.StudentCardNumber)
-                .NotEmpty()
-                .Length(8);
-                
+                .NotEmpty().WithMessage("Student Card Number is required.")
+                .Length(8)
+                .Matches(@"^[A-Za-z]{2}[0-9]{6}$").WithMessage("Student Card Number must consist of 2 letters followed by 6 digits.");
+
+
 
 
 

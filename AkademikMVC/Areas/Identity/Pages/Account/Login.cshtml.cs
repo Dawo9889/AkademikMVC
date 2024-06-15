@@ -65,7 +65,8 @@ namespace AkademikMVC.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [Display(Name = "Numer Karty Studenckiej")]
+            [Display(Name = "Student Card Number")]
+            [RegularExpression(@"^[A-Za-z]{2}[0-9]{6}$", ErrorMessage = "The student card number must consist of 2 letters and 6 digits. (aa123456)")]
             public string UserName { get; set; }
 
             /// <summary>
