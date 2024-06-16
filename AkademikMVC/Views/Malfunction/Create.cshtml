@@ -26,20 +26,16 @@
             </div>
             <div class="form-group p-2 row">
                 <label asp-for="PhotoData" for="formFile" class="form-label col-md-2 mt-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="PhotoData" class="form-control" type="file" id="formFile">
-                    <span asp-validation-for="PhotoData" class="text-danger"></span>
-                </div>
+
+                <div class="col-md-10 d-flex align-items-center"> <input asp-for="PhotoData" class="form-control ms-2" type="file" id="formFile"> <span asp-validation-for="PhotoData" class="text-danger"></span> </div>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a class="btn btn-secondary md-2" asp-action="Index" asp-controller="UserInfo">Go Back</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <button class="btn btn-outline-secondary" onclick="history.back()">Go back</button>
 </div>
 
 @section Scripts {
