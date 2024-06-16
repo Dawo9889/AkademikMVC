@@ -39,8 +39,10 @@ namespace Akademik.Application.Services.MalfunctionService
             await _malfunctionRepository.Create(malfunction);
         }
 
-
-
+        public async Task<IEnumerable<Malfunction?>> GetAllByRoomNumber(int roomNumber)
+        {
+            return await _malfunctionRepository.GetAllByRoomNumber(roomNumber);
+        }
 
         public byte[] ProcessImage(IFormFile imageFile)
         {

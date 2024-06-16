@@ -1,4 +1,5 @@
 ﻿using Akademik.Application.DTO.MalfunctionDTO;
+using Akademik.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Akademik.Application.Services.MalfunctionService
     public interface IMalfunctionService
     {
         Task Create(CreateMalfunctionDTO createMalfunctionDTO);
+        Task<IEnumerable<Malfunction?>> GetAllByRoomNumber(int roomNumber);
     }
 }

@@ -81,8 +81,8 @@
                     <a class="btn btn-secondary"
                        asp-controller="Malfunction"
                        asp-action="Create"
-                       asp-route-residentId="Id"
-                       asp-route-roomNumber="RoomNumber">
+                       asp-route-residentId="@Model.Id"
+                       asp-route-roomNumber="@Model.RoomNumber">
                         Report an issue in Your Room
                     </a>
                 }

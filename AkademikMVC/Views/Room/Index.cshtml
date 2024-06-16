@@ -54,6 +54,7 @@
                     <div class="card-footer mt-auto">
                         @if (!room.Residents.Any())
                         {
+
                             <a asp-action="Delete" asp-route-roomNumber="@room.RoomNumber" class="btn btn-danger">Delete</a>
                         }
                         else
@@ -61,6 +62,7 @@
                         <a class="btn btn-outline-dark" onclick="showDeleteAlert()" disabled>Delete</a>
                         }
                         <a asp-action="Edit" asp-route-roomNumber="@room.RoomNumber" class="btn btn-outline-primary">Edit Room</a>
+                        <a asp-controller="Malfunction" asp-action="GetFromRoom" asp-route-roomNumber="@room.RoomNumber" class="btn btn-primary">Malfunctions</a>
                     </div>
                     }
             </div>
