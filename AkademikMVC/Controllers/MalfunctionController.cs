@@ -5,10 +5,12 @@ using Akademik.Application.Services.ResidentService;
 using Akademik.Application.Services.RoomService;
 using Akademik.Domain.Entities;
 using Akademik.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AkademikMVC.Controllers
 {
+    [Authorize]
     public class MalfunctionController : Controller
     {
         private readonly IMalfunctionService _malfunctionService;
