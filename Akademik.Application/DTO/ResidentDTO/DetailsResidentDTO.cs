@@ -9,7 +9,7 @@ namespace Akademik.Application.DTO.ResidentDTO
 {
     public class DetailsResidentDTO
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string PESEL { get; set; } = default!;
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;

@@ -5,13 +5,22 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to the Dormitory System!</h1>
 
+
     @if (!User.Identity.IsAuthenticated)
     {
         <p>
             <a class="btn btn-primary btn-lg" asp-area="Identity" asp-page="/Account/Login">Log In</a>
             <a class="btn btn-secondary btn-lg" asp-area="Identity" asp-page="/Account/Register">Register</a>
         </p>
+
+        <div class="d-flex justify-content-center">
+            <div class="p-2 text-center">
+                <small class="fs-5">Administrator Login: aa123456</small><br />
+                <small class="fs-5">Administrator Password: ZAQ!2wsx</small>
+            </div>
+        </div>
     }
+
     @if (User.IsInRole("Admin"))
     {
         <div class="d-flex justify-content-center">
