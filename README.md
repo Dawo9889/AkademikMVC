@@ -1,6 +1,6 @@
 ## Credentials to an admin user to manage dormitory:
-### user: administrator@akademik.com
-### password: Akademik1@
+### user: aa123456
+### password: ZAQ!2wsx
 ### url to our application on azure https://akademik-mvc.azurewebsites.net
 ### Technology stack:
 #### - ASP.NET MVC
