@@ -2,6 +2,7 @@
 ### user: aa123456
 ### password: ZAQ!2wsx
 ### url to our application on azure [https://akademik-mvc.azurewebsites.net](https://akademikmvc.azurewebsites.net/)
+You have to wait about 30 seconds for the azure application to start.
 ### Technology stack:
 #### - ASP.NET MVC
 #### - Entity Framework
